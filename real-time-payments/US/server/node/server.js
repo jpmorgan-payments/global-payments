@@ -15,7 +15,8 @@ const httpsOptions = {
     key:process.env.KEY,
     cert: process.env.CERT
 }
-console.log(httpsOptions)
+
+// Method to add logging to your proxy responses for debugging/info purposes
 const handleProxyResponse = async (responseBuffer, proxyRes, req) => {
   const exchange = `[${req.method}] [${proxyRes.statusCode}] ${req.path} -> ${proxyRes.req.protocol}//${proxyRes.req.host}${proxyRes.req.path}`;
   console.log(exchange);
@@ -26,6 +27,7 @@ const handleProxyResponse = async (responseBuffer, proxyRes, req) => {
   return responseBuffer;
 };
 
+// Proxy function to forward any requests straight through to API server
 async function createProxyConfiguration(target) {
   const options = {
     target,
@@ -43,6 +45,7 @@ async function createProxyConfiguration(target) {
   return createProxyMiddleware(options);
 }
 
+// Proxy function to forward any requests straight through to API server with added digital signature in the body
 async function createProxyConfigurationForDigital(target, digitalSignature) {
   const options = {
     target,
@@ -67,6 +70,7 @@ async function createProxyConfigurationForDigital(target, digitalSignature) {
   return createProxyMiddleware(options);
 }
 
+//Method for creating signed body
 const generateJWTJose = async (body) => {
     const privateKey = await jose.importPKCS8(process.env.DIGITAL, 'RSA-SHA256');
     const signature = await new jose.SignJWT(body)
