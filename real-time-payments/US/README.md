@@ -15,6 +15,7 @@ This example includes several different server implementations and several diffe
 Pick a server:
 
 - [node](./server/node)
+- [node TypeScript](./server/node-typescript/)
 
 Pick a client:
 

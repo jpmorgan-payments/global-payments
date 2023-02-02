@@ -7,6 +7,7 @@ in the directory on how to run.
 # Supported languages
 
 - [JavaScript (Node)](node/README.md)
+- [TypeScript (Node)](node-typescript/README.md)
 
 # Setting up your .env file
 
