@@ -8,6 +8,8 @@ coverage
 # Misc
 .DS_Store
 .eslintcache
+.env
+.env.*
 
 
 # Editors

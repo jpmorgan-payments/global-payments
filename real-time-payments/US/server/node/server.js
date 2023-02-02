@@ -1,12 +1,12 @@
 const bodyParser = require('body-parser');
 const express = require('express');
-const fs = require('fs');
 const https = require('https');
 const jose = require('jose');
 const {
   createProxyMiddleware,
   responseInterceptor,
 } = require('http-proxy-middleware');
+require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
@@ -15,7 +15,7 @@ const httpsOptions = {
     key:process.env.KEY,
     cert: process.env.CERT
 }
-
+console.log(httpsOptions)
 const handleProxyResponse = async (responseBuffer, proxyRes, req) => {
   const exchange = `[${req.method}] [${proxyRes.statusCode}] ${req.path} -> ${proxyRes.req.protocol}//${proxyRes.req.host}${proxyRes.req.path}`;
   console.log(exchange);
