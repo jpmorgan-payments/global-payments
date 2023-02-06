@@ -3,8 +3,8 @@ import { ClientRequest } from "http";
 import express from "express";
 import bodyParser from "body-parser";
 import https from "https"
-import jose, { JWTPayload } from "jose"
-import {createProxyMiddleware, responseInterceptor}  from 'http-proxy-middleware';
+import * as jose from 'jose'
+import {createProxyMiddleware}  from 'http-proxy-middleware';
 
 require('dotenv').config();
 
@@ -58,18 +58,19 @@ async function createProxyConfigurationForDigital(target:string, digitalSignatur
 }
 
 //Method for creating signed body
-const generateJWTJose = async (body: JWTPayload) => {
-    const privateKey = await jose.importPKCS8(process.env.DIGITAL, 'RSA-SHA256');
-    const signature = await new jose.SignJWT(body)
-      .setProtectedHeader({
-        alg: 'RS256',
-      })
-      .sign(privateKey);
-    return signature;
-  };
+const generateJWTJose = async (body: jose.JWTPayload) => {
+  const privateKey = await jose.importPKCS8(process.env.DIGITAL, 'RSA-SHA256');
+  const signature = await new jose.SignJWT(body)
+    .setProtectedHeader({
+      alg: 'RS256',
+    })
+    .sign(privateKey);
+  return signature;
+};
 
 app.use('/api/digitalSignature/*', async (req:Request, res:Response, next:NextFunction) => {
   const digitalSignature = await generateJWTJose(req.body);
+  console.log(digitalSignature)
   const func = await createProxyConfigurationForDigital('https://apigatewaycat.jpmorgan.com', digitalSignature);
   func(req, res, next);
 });
