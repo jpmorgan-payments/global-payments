@@ -117,7 +117,10 @@
       var object = {};
       formData.forEach((value, key) => object[key] = value);
       var json = JSON.stringify(object);
-      console.log(json)
+      const request = new XMLHttpRequest();
+      request.open("POST", "/api/digitalSignature/tsapi/v1/payments");
+      request.send(json);
+
     }
 
   </script>
