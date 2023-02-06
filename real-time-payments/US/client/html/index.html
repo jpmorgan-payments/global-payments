@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>JP Morgan Global Payments(US RTP) Sample</title>
+
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="css/normalize.css" />
+  <link rel="stylesheet" href="css/global.css" />
+</head>
+
+<body>
+  <div class="sr-root">
+    <div class="sr-main">
+      <section class="container">
+
+        <form method="POST" id="paymentsForm">
+          <div>
+            <label for="say">What greeting do you want to say?</label>
+            <input name="say" id="say" value="Hi" />
+          </div>
+          <div>
+            <label for="to">Who do you want to say it to?</label>
+            <input name="to" id="to" value="Mom" />
+          </div>
+
+        </form>
+        <div>
+          <button onclick="sendPaymentClicked()">Buy</button>
+        </div>
+      </section>
+
+      <div id="error-message"></div>
+    </div>
+  </div>
+  <script>
+    function sendPaymentClicked() {
+      const formElement = document.querySelector("form");
+      const formData = new FormData(formElement);
+      const request = new XMLHttpRequest();
+      request.open("POST", "/api/digitalSignature/tsapi/v1/payments/status");
+      request.send(JSON.stringify(formData));
+    }
+
+  </script>
+</body>
+
+</html>
