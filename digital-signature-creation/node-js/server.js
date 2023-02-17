@@ -16,7 +16,7 @@ const generateJWTJose = async (body) => {
     return signature;
   };
 
-app.use('/*', async (req, res) => {
+app.use('/', async (req, res) => {
   const digitalSignature = await generateJWTJose(req.body);
   res.send(digitalSignature)
 });
