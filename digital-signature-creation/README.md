@@ -14,6 +14,7 @@ This example includes several different language implementations.
 
 Pick a server:
 
-- [node](./node-js)
-- [node TypeScript](./node-ts/)
-
+- [Node](./node-js)
+- [Node TypeScript](./node-ts/)
+- [Python](./python/)
+- [Java](./java/)

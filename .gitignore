@@ -1,6 +1,6 @@
 # Dependencies
 node_modules
-
+env
 
 # Testing
 coverage
@@ -25,3 +25,4 @@ yarn-error.log*
 # Builds
 dist
 build
+target
