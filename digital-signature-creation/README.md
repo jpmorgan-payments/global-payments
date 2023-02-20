@@ -17,3 +17,4 @@ Pick a server:
 - [Node](./node-js)
 - [Node TypeScript](./node-ts/)
 - [Python](./python/)
+- [Java](./java/)
