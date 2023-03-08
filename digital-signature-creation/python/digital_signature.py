@@ -1,11 +1,4 @@
-
-from dotenv import load_dotenv
 import jwt
-import os
-load_dotenv()
 
-DIGITAL_KEY = os.getenv('DIGITAL')
-body = {}
-
-digital_signature = jwt.encode(body, DIGITAL_KEY, algorithm="RS256")
-print(digital_signature)
+def generate_digital_signature(digital_key, body):
+    return jwt.encode(body, digital_key, algorithm="RS256")
