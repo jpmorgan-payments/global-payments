@@ -34,19 +34,18 @@ def call_chatgpt(prompt, max_tokens, output_file_name, language):
 
 
 def generate_code(language, output_file_name):
-    with open('digital_signature.py', 'r') as file:
+    with open('js/digital_signature.js', 'r') as file:
         # Read the entire contents of the file into a string
         file_contents = file.read().replace("\n", r"\n")
-        prompt = "##### Translate this code from Python into "+language+"\n ### Python\n " + \
+        prompt = "##### JavaScript to "+language+"\n ### js\n " + \
             file_contents+"    \n\n ### "+language,
         call_chatgpt(prompt, 350, output_file_name, language)
 
 
 language_details = [
-    {"language": 'javascript', "output_file_name": 'digital_signature.js'},
-    {"language": 'java', "output_file_name": 'digital_signature.java'},
-    {"language": 'typescript', "output_file_name": 'digital_signature.ts'},
-    {"language": 'go', "output_file_name": 'digital_signature.go'}
+    {"language": 'python', "output_file_name": 'python/digital_signature.py'},
+    {"language": 'java', "output_file_name": 'java/digital_signature.java'}
+
 ]
 
 for item in language_details:
