@@ -17,7 +17,6 @@ class TestGenerateDigitalSignature(unittest.TestCase):
     def test_generate_digital_signature(self):
         # Generate the digital signature using the function being tested
         signature = generate_digital_signature(self.digital_key, self.body)
-
         # Verify that the signature was generated successfully
         self.assertIsNotNone(signature)
 
