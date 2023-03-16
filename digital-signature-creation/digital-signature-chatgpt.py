@@ -21,6 +21,7 @@ def call_chatgpt(prompt, max_tokens, output_file_name, language):
     )
     if response.choices[0]:
         if (response.choices[0].finish_reason == 'length'):
+            print(response.choices[0])
             print('Increasing max token... ' + str(max_tokens+50))
             return call_chatgpt(prompt, max_tokens+50, output_file_name, language)
         code = response.choices[0].text.strip()
@@ -37,14 +38,15 @@ def generate_code(language, output_file_name):
     with open('js/digital_signature.js', 'r') as file:
         # Read the entire contents of the file into a string
         file_contents = file.read().replace("\n", r"\n")
-        prompt = "##### JavaScript to "+language+"\n ### js\n " + \
+        prompt = "##### translate JavaScript to "+language+"\n ### js\n " + \
             file_contents+"    \n\n ### "+language,
         call_chatgpt(prompt, 350, output_file_name, language)
 
 
 language_details = [
-    {"language": 'python', "output_file_name": 'python/digital_signature.py'},
-    {"language": 'java', "output_file_name": 'java/digital_signature.java'}
+    # {"language": 'python', "output_file_name": 'python/digital_signature.py'},
+    # {"language": 'Java', "output_file_name": 'java/digital_signature.java'}
+    {"language": 'Go', "output_file_name": 'go/digital_signature.go'}
 
 ]
 

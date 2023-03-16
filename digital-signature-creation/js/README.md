@@ -1,10 +1,10 @@
-# Digital Signature GoLang snippet
+# Digital Signature JS snippet
 
-A snippet of Golang code to show how to create a digital signature
+A snippet of JS code to show how to create a digital signature
 
 ## Requirements
 
-- Go installed
+- yarn installed
 - [Configured .env file](../README.md)
 
 ## How to run
@@ -23,5 +23,6 @@ PUBLIC=
 2. Install dependencies and start the server
 
 ```
-go test
+yarn install
+yarn test
 ```

@@ -1,4 +1,4 @@
-package generate_digital_signature
+package digital_signature
 
 import (
     "fmt"
@@ -14,12 +14,11 @@ func setupSuite(t testing.TB) string {
     if err != nil {
         fmt.Println("Error loading .env file")
     }
-    return  os.Getenv("DIGITAL_KEY")
+    return  os.Getenv("PRIVATE")
 }
 
 func TestDigSignGenerated(t *testing.T)  {
     digital_key := setupSuite(t)
-
     result := generate_digital_signature(digital_key, map[string]interface{}{"foo": "bar"})
 
 	// Verify that the token can be parsed and verified
@@ -29,7 +28,7 @@ func TestDigSignGenerated(t *testing.T)  {
 			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 		}
 		// Load the public key from the .env file
-		publicKey := os.Getenv("PUBLIC_KEY")
+		publicKey := os.Getenv("PUBLIC")
 		key, err := jwt.ParseRSAPublicKeyFromPEM([]byte(publicKey))
 		if err != nil {
 			return nil, fmt.Errorf("Failed to parse public key: %v", err)

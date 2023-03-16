@@ -10,12 +10,13 @@ load_dotenv()  # Load the environment variables from the .env file
 class TestGenerateDigitalSignature(unittest.TestCase):
 
     def setUp(self):
-        self.digital_key = os.environ.get("DIGITAL_KEY")
-        self.public_key = os.environ.get("PUBLIC_KEY")
+        self.digital_key = os.environ.get("PRIVATE")
+        self.public_key = os.environ.get("PUBLIC")
         self.body = {"user_id": 123}
 
     def test_generate_digital_signature(self):
         # Generate the digital signature using the function being tested
+        print(self.body)
         signature = generate_digital_signature(self.digital_key, self.body)
         # Verify that the signature was generated successfully
         self.assertIsNotNone(signature)

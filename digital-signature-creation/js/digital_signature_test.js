@@ -3,16 +3,16 @@ require('dotenv').config();
 const { expect } = require('chai');
 const generate_digital_signature = require('./digital_signature');
 
-const digitalKey = process.env.DIGITAL_KEY;
-const publicKey = process.env.PUBLIC_KEY;
+const privateKey = process.env.PRIVATE;
+const publicKey = process.env.PUBLIC;
 
 const body = { name: 'John Doe', email: 'john@example.com' };
 
 
 describe('generate_digital_signature', () => {
   it('should generate a valid digital signature', () => {
-    const expectedSignature = jwt.sign(body, digitalKey, { algorithm: 'RS256' });
-    const actualSignature = generate_digital_signature(digitalKey, body);
+    const expectedSignature = jwt.sign(body, privateKey, { algorithm: 'RS256' });
+    const actualSignature = generate_digital_signature(privateKey, body);
     expect(actualSignature).to.equal(expectedSignature);
   });
 
@@ -22,7 +22,7 @@ describe('generate_digital_signature', () => {
   });
 
   it('should be able to verify the key', () => {
-    const actualSignature = generate_digital_signature(digitalKey, body);
+    const actualSignature = generate_digital_signature(privateKey, body);
 
     jwt.verify(actualSignature, publicKey, function(err, decoded) {
         expect(decoded.email).to.equal(body.email);
