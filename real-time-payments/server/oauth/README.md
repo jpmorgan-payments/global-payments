@@ -1,0 +1,1 @@
+# Global Payments OAuth servers

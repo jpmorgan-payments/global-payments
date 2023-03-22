@@ -14,24 +14,26 @@ public class JWTDemo
 
 {
 
+    private static String formatKeyString(String key) {
+        return key.replace("-----BEGIN PRIVATE KEY-----", "").replace("-----END PRIVATE KEY-----", "")
+                .replace("\\n", "").replaceAll("\\s+", "");
+    }
+
     /**
      * Method for reading in a private key and preparing it for signing
      * 
-     * @param secretKey Your digital signature key that has been configured in
-     *                  developer.jpmorgan.com
+     * @param key Your digital signature key that has been configured in
+     *            developer.jpmorgan.com
      * @return a Private Key object
      */
-    private static PrivateKey gatherPrivateKey(String secretKey) {
-
-        secretKey = secretKey.replace("-----BEGIN PRIVATE KEY-----", "");
-        secretKey = secretKey.replace("-----END PRIVATE KEY-----", "");
-
-        byte[] prvKeyBytes = DatatypeConverter.parseBase64Binary(secretKey);
+    private static PrivateKey gatherPrivateKey(String key) {
+        byte[] prvKeyBytes = DatatypeConverter.parseBase64Binary(formatKeyString(key));
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(prvKeyBytes);
         PrivateKey prvKey = null;
         try {
             KeyFactory kf = KeyFactory.getInstance("RSA");
             prvKey = kf.generatePrivate(keySpec);
+
         } catch (InvalidKeySpecException e) {
             // TODO Proper error handling is required here
             e.printStackTrace();
@@ -45,18 +47,18 @@ public class JWTDemo
     /**
      * Method for signing a JSON payload
      * 
-     * @param payload   The JSON payload to be digitally signed.
-     * @param secretKey Your digital signature key that has been configured in
-     *                  developer.jpmorgan.com
+     * @param payload The JSON payload to be digitally signed.
+     * @param key     Your digital signature key that has been configured in
+     *                developer.jpmorgan.com
      * @return
      */
-    public static String createJWT(String payload, String secretKey) {
+    public static String createJWT(String payload, String key) {
 
         // The JWT signature algorithm we will be using to sign the token
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.RS256;
 
         // Prepare your private key for signing
-        PrivateKey prvKey = gatherPrivateKey(secretKey);
+        PrivateKey prvKey = gatherPrivateKey(key);
         final JSONObject obj = new JSONObject(payload);
 
         return Jwts.builder().setClaims(obj.toMap())

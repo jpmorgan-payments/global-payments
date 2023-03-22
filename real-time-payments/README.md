@@ -1,6 +1,6 @@
-# Initiate a Real Time US payment using Global Payments API
+# Initiate a Real Time payment using Global Payments API
 
-This example code shows you how to send requests to the Global Payments API for US RTP.
+This example code shows you how to send requests to the Global Payments API for RTP.
 
 ## How to run locally
 
