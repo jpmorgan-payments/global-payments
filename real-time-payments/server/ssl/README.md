@@ -1,4 +1,4 @@
-# Running the server
+# Global Payments SSL servers
 
 We included several RESTful servers that each implement the same endpoints and
 logic. Pick the language you are most comfortable in and follow the instructions
