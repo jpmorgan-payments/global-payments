@@ -21,17 +21,23 @@ async function createProxyConfiguration(target: string) {
   const options = {
     target,
     changeOrigin: true,
-    selfHandleResponse: true,
     agent: new https.Agent(httpsOptions),
-    pathRewrite:{
-        '^/api/': '',
-      },
     onError: (err: Error) => {
       console.log(err);
     },
   };
   return createProxyMiddleware(options);
 }
+
+const handleProxyResponse = async (responseBuffer, proxyRes, req) => {
+  const exchange = `[${req.method}] [${proxyRes.statusCode}] ${req.path} -> ${proxyRes.req.protocol}//${proxyRes.req.host}${proxyRes.req.path}`;
+  console.log(exchange);
+  if (proxyRes.headers['content-type'] === 'application/json') {
+    const data = JSON.parse(responseBuffer.toString('utf8'));
+    return JSON.stringify(data);
+  }
+  return responseBuffer;
+};
 
 // Proxy function to forward any requests straight through to API server with added digital signature in the body
 async function createProxyConfigurationForDigital(target:string, digitalSignature:string) {
@@ -41,7 +47,7 @@ async function createProxyConfigurationForDigital(target:string, digitalSignatur
     selfHandleResponse: true,
     agent: new https.Agent(httpsOptions),
     pathRewrite: {
-      '^/api/digitalSignature': '',
+      '^/digitalSignature': '',
     },
     onProxyReq: async (proxyReq:ClientRequest, req:Request) => {
       if (req.body) {
@@ -50,6 +56,7 @@ async function createProxyConfigurationForDigital(target:string, digitalSignatur
         proxyReq.write(digitalSignature);
       }
     },
+    onProxyRes: responseInterceptor(handleProxyResponse),
     onError: (err:Error) => {
       console.log(err);
     },
@@ -68,7 +75,7 @@ const generateJWTJose = async (body: jose.JWTPayload) => {
   return signature;
 };
 
-app.use('/api/digitalSignature/*', async (req:Request, res:Response, next:NextFunction) => {
+app.use('/digitalSignature/*', async (req:Request, res:Response, next:NextFunction) => {
   const digitalSignature = await generateJWTJose(req.body);
   console.log(digitalSignature)
   const func = await createProxyConfigurationForDigital('https://apigatewaycat.jpmorgan.com', digitalSignature);
