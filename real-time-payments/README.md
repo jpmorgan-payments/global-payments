@@ -19,6 +19,8 @@ Pick a server:
 - [node SSL](./server/ssl/node)
 - [node TypeScript SSL](./server/ssl/node-typescript/)
 
+Our clients implement the required fields for making a US RTP payment. To make any other types you will need to change the fields you provide by following the API spec.
+
 Pick a client:
 
 - [Basic HTML](./client/html/)
