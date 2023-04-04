@@ -15,6 +15,6 @@ function sendPaymentClicked() {
         }
       }
     };
-    request.open("POST", "/digitalSignature/tsapi/v1/payments");
+    request.open("POST", "/api/digitalSignature/tsapi/v1/payments");
     request.send(json);
   }
