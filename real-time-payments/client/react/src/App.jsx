@@ -1,35 +1,162 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import "./css/App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>JP Morgan Global Payments Sample</h1>
+      <form method="POST" id="paymentsForm" onSubmit={sendPaymentClicked()}>
+        <label for="paymentType">Payment Type</label>
+        <select id="paymentType" name="paymentType" required>
+          <option value="RTP" selected>
+            RTP
+          </option>
+        </select>
+
+        <label for="paymentCurrency">Payment Currency</label>
+        <select id="paymentCurrency" name="paymentCurrency" required>
+          <option value="USD" selected>
+            USD
+          </option>
+        </select>
+
+        <label for="requestedExecutionDate">Requested Execution Date</label>
+        <input
+          type="date"
+          id="requestedExecutionDate"
+          name="requestedExecutionDate"
+          required
+        />
+
+        <fieldset name="paymentsIdentifiers">
+          <legend>Payments Identifiers</legend>
+          <label for="endToEndId">End to end ID</label>
+          <input
+            type="text"
+            id="endToEndId"
+            name="paymentsIdentifiers.endToEndId"
+            required
+          />
+        </fieldset>
+
+        <label for="paymentAmount">Payment Amount</label>
+        <input type="number" id="paymentAmount" name="paymentAmount" required />
+
+        <label for="transferType">Transfer Type</label>
+        <select name="transferType" id="transferType">
+          <option value="CREDIT">CREDIT</option>
+          <option value="DEBIT">DEBIT</option>
+        </select>
+
+        <fieldset name="debtor">
+          <legend>Debtor</legend>
+          <label for="debtorName">Debtor Name</label>
+          <input
+            type="text"
+            id="debtorName"
+            name="debtor.debtorName"
+            required
+          />
+
+          <fieldset name="debtorAccount">
+            <legend>Debtor Account</legend>
+            <label for="accountId">Account Id</label>
+            <input
+              type="text"
+              id="accountId"
+              name="debtor.debtorAccount.accountId"
+              required
+            />
+            <label for="accountCurrency">Account Currency</label>
+            <input
+              type="text"
+              id="accountCurrency"
+              name="debtor.debtorAccount.accountCurrency"
+              required
+            />
+          </fieldset>
+        </fieldset>
+
+        <fieldset name="debtorAgent">
+          <legend>Debtor Agent</legend>
+          <fieldset name="financialInstitutionId">
+            <legend>Financial Institution Id</legend>
+            <fieldset name="clearingSystemId">
+              <legend>Clearing System Id</legend>
+              <label for="id">Id</label>
+              <input
+                type="text"
+                id="id"
+                name="debtorAgent.financialInstitutionId.clearingSystemId.id"
+                required
+              />
+              <label for="idType">ID Type </label>
+              <input
+                type="text"
+                id="idType"
+                name="debtorAgent.financialInstitutionId.clearingSystemId.idType"
+                required
+              />
+            </fieldset>
+          </fieldset>
+        </fieldset>
+
+        <fieldset name="creditor">
+          <legend>Creditor</legend>
+          <label for="creditorName">Creditor Name</label>
+          <input
+            type="text"
+            id="creditorName"
+            name="creditor.creditorName"
+            required
+          />
+
+          <fieldset name="creditorAccount">
+            <legend>Creditor Account</legend>
+            <label for="creditorAccountId">Account Id</label>
+            <input
+              type="text"
+              id="creditorAccountId"
+              name="creditor.creditorAccount.accountId"
+              required
+            />
+            <label for="creditorAccountCurrency">Account Currency</label>
+            <input
+              type="text"
+              id="creditorAccountCurrency"
+              name="creditor.creditorAccount.accountCurrency"
+              required
+            />
+          </fieldset>
+        </fieldset>
+
+        <fieldset name="creditorAgent">
+          <legend>Creditor Agent</legend>
+          <fieldset name="creditorFinancialInstitutionId">
+            <legend>Financial Institution Id</legend>
+            <fieldset name="creditorClearingSystemId">
+              <legend>Clearing System Id</legend>
+              <label for="creditorId">Id</label>
+              <input
+                type="text"
+                id="creditorId"
+                name="creditorAgent.financialInstitutionId.clearingSystemId.id"
+                required
+              />
+              <label for="creditorIdType">ID Type </label>
+              <input
+                type="text"
+                id="creditorIdType"
+                name="creditorAgent.financialInstitutionId.clearingSystemId.idType"
+                required
+              />
+            </fieldset>
+          </fieldset>
+        </fieldset>
+        <button type="submit">Initiate US RTP Payment</button>
+      </form>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
