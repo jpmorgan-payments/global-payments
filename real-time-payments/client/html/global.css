@@ -1,69 +1,80 @@
 * {
-    box-sizing: border-box;
-    display:flex;
-    justify-content: center;
-    flex-direction: column;
-  }
+  box-sizing: border-box;
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
+}
 
-  html{
-    margin: 10px
-  }
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  color: #31373D;
+  background: #F5F7F8;
+}
 
-  script{
-    display: none;
-  }
-  
-  title {text-decoration: solid;font-weight: bold;font-size: x-large;margin-top: 20px;}
+.sr-main {
+  width: 100%;
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+}
 
+script{
+  display: none;
+}
 
-  input[type=text], select, textarea {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-  }
-  
-  label {
-    padding: 12px 12px 12px 0;
-    display: inline-block;
-  }
-  
-  input[type=submit] {
-    background-color: #04AA6D;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    float: right;
-  }
-  
-  input[type=submit]:hover {
-    background-color: #45a049;
-  }
-  
-  .container {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-  }
-  
-  .col-25 {
-    float: left;
-    width: 25%;
-    margin-top: 6px;
-  }
-  
-  .col-75 {
-    float: left;
-    width: 75%;
-    margin-top: 6px;
-  }
-  
-  /* Clear floats after the columns */
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-  
+title {
+  font-family: sans-serif;
+  font-size: 2rem;
+  width: 100%;
+  max-width: 800px;
+  margin: 4rem auto 0 auto;
+  padding: 0 2rem;
+}
+
+input, select, textarea {
+  padding: 1rem;
+  border: 1px solid #31373D;
+  border-radius: 3px;
+  resize: vertical;
+  flex-direction: initial;
+  margin: 0 0 1rem 0;
+}
+
+input::placeholder {
+  color: #83878B;
+}
+
+label {
+  padding: 0.5rem 1rem 0.5rem 0;
+  display: inline-block;
+}
+
+fieldset {
+  border: 1px solid #E2E4E5;
+  padding: 0.5rem 1rem;
+  margin: 0 0 1rem 0;
+}
+
+legend {
+  font-family: monospace;
+  color: #8C8E90;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+
+}
+
+button[type=submit] {
+  background-color: #009B77;
+  transition: background-color 0.2s;
+  color: white;
+  padding: 1.5rem 2rem;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+button[type=submit]:hover {
+  background-color: #008259;
+}
