@@ -79,7 +79,7 @@ const generateJWTJose = async (body: jose.JWTPayload) => {
   return signature;
 };
 
-app.use('/digitalSignature/*', async (req:Request, res:Response, next:NextFunction) => {
+app.use('/api/digitalSignature/*', async (req:Request, res:Response, next:NextFunction) => {
   const digitalSignature = await generateJWTJose(req.body);
   console.log(digitalSignature)
   const func = await createProxyConfigurationForDigital('https://apigatewaycat.jpmorgan.com', digitalSignature);
