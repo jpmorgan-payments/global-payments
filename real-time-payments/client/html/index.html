@@ -8,109 +8,102 @@
   <title>JP Morgan Global Payments(US RTP) Sample</title>
 
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/global.css">
   <script type="text/javascript" src="submit.js"></script>
 
 </head>
 
-
-
 <body>
-  <div class="sr-root">
-    <div class="sr-main">
+  <div class="sr-main">
 
-      <form method="POST" id="paymentsForm">
+    <form method="POST" id="paymentsForm">
 
-        <label for="requestedExecutionDate">Requested Execution Date</label>
-        <input type="date" id="requestedExecutionDate" name="requestedExecutionDate" required><br><br>
+      <label for="requestedExecutionDate">Requested Execution Date</label>
+      <input type="date" id="requestedExecutionDate" name="requestedExecutionDate" required><br><br>
 
-        <fieldset name="paymentsIdentifiers">
-          <legend>Payments Identifiers</legend>
-          <label for="endToEndId">End to end ID</label>
-          <input type="text" id="endToEndId" name="paymentsIdentifiers.endToEndId" required><br><br>
+      <fieldset name="paymentsIdentifiers">
+        <legend>Payments Identifiers</legend>
+        <label for="endToEndId">End to end ID</label>
+        <input type="text" id="endToEndId" name="paymentsIdentifiers.endToEndId" required><br><br>
+      </fieldset>
+
+      <label for="paymentCurrency">Payment Currency</label>
+      <input type="text" id="paymentCurrency" name="paymentCurrency" placeholder="USD" required><br><br>
+
+      <label for="paymentAmount">Payment Amount</label>
+      <input type="number" id="paymentAmount" name="paymentAmount" required><br><br>
+
+      <label for="paymentType">Payment Type</label>
+      <input type="text" id="paymentType" name="paymentType" required placeholder="RTP"><br><br>
+
+      <label for="transferType">Transfer Type</label>
+      <select name="transferType" id="transferType">
+        <option value="CREDIT">CREDIT</option>
+        <option value="DEBIT">DEBIT</option>
+      </select>
+
+      <fieldset name="debtor">
+        <legend>Debtor</legend>
+        <label for="debtorName">Debtor Name</label>
+        <input type="text" id="debtorName" name="debtor.debtorName" required><br><br>
+
+        <fieldset name="debtorAccount">
+          <legend>Debtor Account</legend>
+          <label for="accountId">Account Id</label>
+          <input type="text" id="accountId" name="debtor.debtorAccount.accountId" required><br><br>
+          <label for="accountCurrency">Account Currency</label>
+          <input type="text" id="accountCurrency" name="debtor.debtorAccount.accountCurrency" required><br><br>
         </fieldset>
+      </fieldset>
 
-        <label for="paymentCurrency">Payment Currency</label>
-        <input type="text" id="paymentCurrency" name="paymentCurrency" placeholder="USD" required><br><br>
-
-        <label for="paymentAmount">Payment Amount</label>
-        <input type="number" id="paymentAmount" name="paymentAmount" required><br><br>
-
-        <label for="paymentType">Payment Type</label>
-        <input type="text" id="paymentType" name="paymentType" required placeholder="RTP"><br><br>
-
-        <label for="transferType">Transfer Type</label>
-        <select name="transferType" id="transferType">
-          <option value="CREDIT">CREDIT</option>
-          <option value="DEBIT">DEBIT</option>
-        </select>
-
-        <fieldset name="debtor">
-          <legend>Debtor</legend>
-          <label for="debtorName">Debtor Name</label>
-          <input type="text" id="debtorName" name="debtor.debtorName" required><br><br>
-
-          <fieldset name="debtorAccount">
-            <legend>Debtor Account</legend>
-            <label for="accountId">Account Id</label>
-            <input type="text" id="accountId" name="debtor.debtorAccount.accountId" required><br><br>
-            <label for="accountCurrency">Account Currency</label>
-            <input type="text" id="accountCurrency" name="debtor.debtorAccount.accountCurrency" required><br><br>
-          </fieldset>
-        </fieldset>
-
-        <fieldset name="debtorAgent">
-          <legend>Debtor Agent</legend>
-          <fieldset name="financialInstitutionId">
-            <legend>Financial Institution Id</legend>
-            <fieldset name="clearingSystemId">
-              <legend>Clearing System Id</legend>
-              <label for="id">Id</label>
-              <input type="text" id="id" name="debtorAgent.financialInstitutionId.clearingSystemId.id" required><br><br>
-              <label for="idType">ID Type </label>
-              <input type="text" id="idType" name="debtorAgent.financialInstitutionId.clearingSystemId.idType"
-                required><br><br>
-            </fieldset>
-          </fieldset>
-        </fieldset>
-
-        <fieldset name="creditor">
-          <legend>Creditor</legend>
-          <label for="creditorName">Creditor Name</label>
-          <input type="text" id="creditorName" name="creditor.creditorName" required><br><br>
-
-          <fieldset name="creditorAccount">
-            <legend>Creditor Account</legend>
-            <label for="creditorAccountId">Account Id</label>
-            <input type="text" id="creditorAccountId" name="creditor.creditorAccount.accountId" required><br><br>
-            <label for="creditorAccountCurrency">Account Currency</label>
-            <input type="text" id="creditorAccountCurrency" name="creditor.creditorAccount.accountCurrency"
+      <fieldset name="debtorAgent">
+        <legend>Debtor Agent</legend>
+        <fieldset name="financialInstitutionId">
+          <legend>Financial Institution Id</legend>
+          <fieldset name="clearingSystemId">
+            <legend>Clearing System Id</legend>
+            <label for="id">Id</label>
+            <input type="text" id="id" name="debtorAgent.financialInstitutionId.clearingSystemId.id" required><br><br>
+            <label for="idType">ID Type </label>
+            <input type="text" id="idType" name="debtorAgent.financialInstitutionId.clearingSystemId.idType"
               required><br><br>
           </fieldset>
         </fieldset>
+      </fieldset>
 
-        <fieldset name="creditorAgent">
-          <legend>Creditor Agent</legend>
-          <fieldset name="creditorFinancialInstitutionId">
-            <legend>Financial Institution Id</legend>
-            <fieldset name="creditorClearingSystemId">
-              <legend>Clearing System Id</legend>
-              <label for="creditorId">Id</label>
-              <input type="text" id="creditorId" name="creditorAgent.financialInstitutionId.clearingSystemId.id"
-                required><br><br>
-              <label for="creditorIdType">ID Type </label>
-              <input type="text" id="creditorIdType" name="creditorAgent.financialInstitutionId.clearingSystemId.idType"
-                required><br><br>
-            </fieldset>
+      <fieldset name="creditor">
+        <legend>Creditor</legend>
+        <label for="creditorName">Creditor Name</label>
+        <input type="text" id="creditorName" name="creditor.creditorName" required><br><br>
+
+        <fieldset name="creditorAccount">
+          <legend>Creditor Account</legend>
+          <label for="creditorAccountId">Account Id</label>
+          <input type="text" id="creditorAccountId" name="creditor.creditorAccount.accountId" required><br><br>
+          <label for="creditorAccountCurrency">Account Currency</label>
+          <input type="text" id="creditorAccountCurrency" name="creditor.creditorAccount.accountCurrency"
+            required><br><br>
+        </fieldset>
+      </fieldset>
+
+      <fieldset name="creditorAgent">
+        <legend>Creditor Agent</legend>
+        <fieldset name="creditorFinancialInstitutionId">
+          <legend>Financial Institution Id</legend>
+          <fieldset name="creditorClearingSystemId">
+            <legend>Clearing System Id</legend>
+            <label for="creditorId">Id</label>
+            <input type="text" id="creditorId" name="creditorAgent.financialInstitutionId.clearingSystemId.id"
+              required><br><br>
+            <label for="creditorIdType">ID Type </label>
+            <input type="text" id="creditorIdType" name="creditorAgent.financialInstitutionId.clearingSystemId.idType"
+              required><br><br>
           </fieldset>
         </fieldset>
+      </fieldset>
 
-      </form>
-      <button type="submit" onclick=sendPaymentClicked()>Initiate US RTP Payment</button>
-
-      <div id="error-message"></div>
-    </div>
+    </form>
+    <button type="submit" onclick=sendPaymentClicked()>Initiate US RTP Payment</button>
   </div>
 </body>
 
