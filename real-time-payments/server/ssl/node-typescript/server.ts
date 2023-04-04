@@ -4,7 +4,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import https from "https"
 import * as jose from 'jose'
-import {createProxyMiddleware}  from 'http-proxy-middleware';
+import {createProxyMiddleware, responseInterceptor}  from 'http-proxy-middleware';
 
 require('dotenv').config();
 
@@ -21,6 +21,10 @@ async function createProxyConfiguration(target: string) {
   const options = {
     target,
     changeOrigin: true,
+    selfHandleResponse: true,
+    pathRewrite: {
+      '^/api/': '',
+    },
     agent: new https.Agent(httpsOptions),
     onError: (err: Error) => {
       console.log(err);
@@ -29,7 +33,7 @@ async function createProxyConfiguration(target: string) {
   return createProxyMiddleware(options);
 }
 
-const handleProxyResponse = async (responseBuffer, proxyRes, req) => {
+const handleProxyResponse = async (responseBuffer: Buffer, proxyRes: any, req: any): Promise<string | Buffer> => {
   const exchange = `[${req.method}] [${proxyRes.statusCode}] ${req.path} -> ${proxyRes.req.protocol}//${proxyRes.req.host}${proxyRes.req.path}`;
   console.log(exchange);
   if (proxyRes.headers['content-type'] === 'application/json') {
@@ -47,7 +51,7 @@ async function createProxyConfigurationForDigital(target:string, digitalSignatur
     selfHandleResponse: true,
     agent: new https.Agent(httpsOptions),
     pathRewrite: {
-      '^/digitalSignature': '',
+      '^/api/digitalSignature': '',
     },
     onProxyReq: async (proxyReq:ClientRequest, req:Request) => {
       if (req.body) {

@@ -22,7 +22,6 @@ const handleProxyResponse = async (responseBuffer, proxyRes, req) => {
   console.log(exchange);
   if (proxyRes.headers['content-type'] === 'application/json') {
     const data = JSON.parse(responseBuffer.toString('utf8'));
-    console.log(JSON.stringify(data));
     return JSON.stringify(data);
   }
   return responseBuffer;
@@ -54,7 +53,7 @@ async function createProxyConfigurationForDigital(target, digitalSignature) {
     selfHandleResponse: true,
     agent: new https.Agent(httpsOptions),
     pathRewrite: {
-      '^/digitalSignature': '',
+      '^/api/digitalSignature': '',
     },
     onProxyReq: async (proxyReq, req) => {
       if (req.body) {
@@ -82,7 +81,7 @@ const generateJWTJose = async (body) => {
     return signature;
   };
 
-app.use('/digitalSignature/*', async (req, res, next) => {
+app.use('/api/digitalSignature/*', async (req, res, next) => {
   const digitalSignature = await generateJWTJose(req.body);
   const func = await createProxyConfigurationForDigital('https://apigatewaycat.jpmorgan.com', digitalSignature);
   func(req, res, next);
