@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>JP Morgan Global Payments(US RTP) Sample</title>
+  <title>JP Morgan Global Payments Sample</title>
 
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/global.css">
@@ -16,7 +16,20 @@
 <body>
   <div class="sr-main">
 
-    <form method="POST" id="paymentsForm">
+    <form method="POST" id="paymentsForm" onsubmit="return sendPaymentClicked()">
+
+      <label for="paymentType">Payment Type</label>
+      <select id="paymentType" name="paymentType" required>
+        <option value="RTP" selected>RTP</option>
+        <option value="ACH.TRF">ACH.TRF</option>
+        <option value="BLOCKCHAIN">BLOCKCHAIN</option>
+      </select>
+
+      <label for="paymentCurrency">Payment Currency</label>
+      <select id="paymentCurrency" name="paymentCurrency" required>
+        <option value="USD" selected>USD</option>
+        <option value="EUR">EUR</option>
+      </select>
 
       <label for="requestedExecutionDate">Requested Execution Date</label>
       <input type="date" id="requestedExecutionDate" name="requestedExecutionDate" required><br><br>
@@ -27,14 +40,10 @@
         <input type="text" id="endToEndId" name="paymentsIdentifiers.endToEndId" required><br><br>
       </fieldset>
 
-      <label for="paymentCurrency">Payment Currency</label>
-      <input type="text" id="paymentCurrency" name="paymentCurrency" placeholder="USD" required><br><br>
+
 
       <label for="paymentAmount">Payment Amount</label>
       <input type="number" id="paymentAmount" name="paymentAmount" required><br><br>
-
-      <label for="paymentType">Payment Type</label>
-      <input type="text" id="paymentType" name="paymentType" required placeholder="RTP"><br><br>
 
       <label for="transferType">Transfer Type</label>
       <select name="transferType" id="transferType">
@@ -101,9 +110,9 @@
           </fieldset>
         </fieldset>
       </fieldset>
+      <button type="submit">Initiate US RTP Payment</button>
 
     </form>
-    <button type="submit" onclick=sendPaymentClicked()>Initiate US RTP Payment</button>
   </div>
 </body>
 
