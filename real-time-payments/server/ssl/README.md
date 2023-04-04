@@ -6,15 +6,15 @@ in the directory on how to run.
 
 # Supported languages
 
-- [JavaScript (Node)](node/README.md)
-- [TypeScript (Node)](node-typescript/README.md)
+- [JavaScript (Node)](./node/README.md)
+- [TypeScript (Node)](./node-typescript/README.md)
 
 # Setting up your .env file
 
 Rename and move the [`.env.example`](.env.example) file into a file named`.env` in the specific folder of the server language you want to use. For example:
 
 ```
-cp .env.example real-time-payments/US/server/node/.env
+cp .env.example real-time-payments/server/ssl/node/.env
 ```
 
 You will need to have an account configured on the JP Morgan [developer portal](https://developer.jpmorgan.com).
