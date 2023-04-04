@@ -10,6 +10,8 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="normalize.css">
   <link rel="stylesheet" href="global.css">
+  <script type="text/javascript" src="submit.js"></script>
+
 </head>
 
 
@@ -105,25 +107,11 @@
         </fieldset>
 
       </form>
-      <button type="submit" onclick="sendPaymentClicked()">Initiate US RTP Payment</button>
+      <button type="submit" onclick=sendPaymentClicked()>Initiate US RTP Payment</button>
 
       <div id="error-message"></div>
     </div>
   </div>
-  <script>
-    function sendPaymentClicked() {
-      const formElement = document.querySelector("form");
-      const formData = new FormData(formElement);
-      var object = {};
-      formData.forEach((value, key) => object[key] = value);
-      var json = JSON.stringify(object);
-      const request = new XMLHttpRequest();
-      request.open("POST", "/api/digitalSignature/tsapi/v1/payments");
-      request.send(json);
-
-    }
-
-  </script>
 </body>
 
 </html>
