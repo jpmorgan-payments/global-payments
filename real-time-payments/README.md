@@ -24,3 +24,4 @@ Our clients implement the required fields for making a US RTP payment. To make a
 Pick a client:
 
 - [Basic HTML](./client/html/)
+- [React JS](./client/react/)
