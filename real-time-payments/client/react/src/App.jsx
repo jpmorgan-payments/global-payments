@@ -1,4 +1,5 @@
 import React from "react";
+import FormInput from "./components/formInput";
 import "./css/App.css";
 
 function App() {
@@ -30,12 +31,11 @@ function App() {
 
         <fieldset name="paymentsIdentifiers">
           <legend>Payments Identifiers</legend>
-          <label for="endToEndId">End to end ID</label>
-          <input
-            type="text"
-            id="endToEndId"
+          <FormInput
+            label="endToEndId"
+            text="End to end ID"
             name="paymentsIdentifiers.endToEndId"
-            required
+            required={true}
           />
         </fieldset>
 
