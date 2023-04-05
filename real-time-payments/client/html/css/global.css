@@ -1,15 +1,13 @@
-* {
-  box-sizing: border-box;
-  display:flex;
-  justify-content: center;
-  flex-direction: column;
-}
 
 body {
   font-family: sans-serif;
   font-size: 16px;
   color: #31373D;
   background: #F5F7F8;
+  box-sizing: border-box;
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 main {
@@ -17,6 +15,13 @@ main {
   max-width: 800px;
   margin: 4rem auto;
   padding: 0 2rem;
+}
+
+form {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 script{

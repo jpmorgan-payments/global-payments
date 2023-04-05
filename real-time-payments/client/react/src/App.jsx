@@ -2,11 +2,18 @@ import React from "react";
 import FormInput from "./components/formInput";
 import "./css/App.css";
 
+const sendPaymentClicked = () => {
+  console.log("ere");
+};
 function App() {
   return (
-    <div className="App">
+    <main>
       <h1>JP Morgan Global Payments Sample</h1>
-      <form method="POST" id="paymentsForm" onSubmit={sendPaymentClicked()}>
+      <form
+        method="POST"
+        id="paymentsForm"
+        onSubmit={() => sendPaymentClicked()}
+      >
         <label for="paymentType">Payment Type</label>
         <select id="paymentType" name="paymentType" required>
           <option value="RTP" selected>
@@ -155,7 +162,7 @@ function App() {
         </fieldset>
         <button type="submit">Initiate US RTP Payment</button>
       </form>
-    </div>
+    </main>
   );
 }
 
