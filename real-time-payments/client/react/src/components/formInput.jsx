@@ -1,10 +1,10 @@
 import React from "react";
 
-const FormInput = ({ id, text, name, required }) => {
+const FormInput = ({ id, text, name, required, type = "text" }) => {
   return (
     <>
-      <label for={id}>{text}</label>
-      <input type="text" id={id} name={name} required={required} />
+      <label htmlFor={id}>{text}</label>
+      <input type={type} id={id} name={name} required={required} />
     </>
   );
 };

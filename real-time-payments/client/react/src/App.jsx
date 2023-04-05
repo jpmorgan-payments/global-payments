@@ -14,23 +14,24 @@ function App() {
         id="paymentsForm"
         onSubmit={() => sendPaymentClicked()}
       >
-        <label for="paymentType">Payment Type</label>
-        <select id="paymentType" name="paymentType" required>
-          <option value="RTP" selected>
-            RTP
-          </option>
+        <label htmlFor="paymentType">Payment Type</label>
+        <select id="paymentType" name="paymentType" required defaultValue="RTP">
+          <option value="RTP">RTP</option>
         </select>
 
-        <label for="paymentCurrency">Payment Currency</label>
-        <select id="paymentCurrency" name="paymentCurrency" required>
-          <option value="USD" selected>
-            USD
-          </option>
+        <label htmlFor="paymentCurrency">Payment Currency</label>
+        <select
+          id="paymentCurrency"
+          name="paymentCurrency"
+          required
+          defaultValue="USD"
+        >
+          <option value="USD">USD</option>
         </select>
 
-        <label for="requestedExecutionDate">Requested Execution Date</label>
-        <input
+        <FormInput
           type="date"
+          text="Requested Execution Date"
           id="requestedExecutionDate"
           name="requestedExecutionDate"
           required
@@ -46,10 +47,15 @@ function App() {
           />
         </fieldset>
 
-        <label for="paymentAmount">Payment Amount</label>
-        <input type="number" id="paymentAmount" name="paymentAmount" required />
+        <FormInput
+          label="paymentAmount"
+          text="Payment Amount"
+          name="paymentAmount"
+          required={true}
+          type="number"
+        />
 
-        <label for="transferType">Transfer Type</label>
+        <label htmlFor="transferType">Transfer Type</label>
         <select name="transferType" id="transferType">
           <option value="CREDIT">CREDIT</option>
           <option value="DEBIT">DEBIT</option>
@@ -57,32 +63,32 @@ function App() {
 
         <fieldset name="debtor">
           <legend>Debtor</legend>
-          <label for="debtorName">Debtor Name</label>
-          <input
-            type="text"
-            id="debtorName"
+          <FormInput
+            label="debtorName"
+            text="Debtor Name"
             name="debtor.debtorName"
-            required
+            required={true}
           />
 
           <fieldset name="debtorAccount">
             <legend>Debtor Account</legend>
-            <label for="accountId">Account Id</label>
-            <input
-              type="text"
-              id="accountId"
+            <FormInput
+              label="accountId"
+              text="Account Id"
               name="debtor.debtorAccount.accountId"
-              required
+              required={true}
             />
-            <label for="accountCurrency">Account Currency</label>
-            <input
-              type="text"
-              id="accountCurrency"
+            <FormInput
+              label="accountCurrency"
+              text="Account Currency"
               name="debtor.debtorAccount.accountCurrency"
-              required
+              type="number"
+              required={true}
             />
           </fieldset>
         </fieldset>
+
+        <FormInput label="" text="" name="" required={true} />
 
         <fieldset name="debtorAgent">
           <legend>Debtor Agent</legend>
@@ -90,19 +96,17 @@ function App() {
             <legend>Financial Institution Id</legend>
             <fieldset name="clearingSystemId">
               <legend>Clearing System Id</legend>
-              <label for="id">Id</label>
-              <input
-                type="text"
-                id="id"
+              <FormInput
+                label="id"
+                text="Id"
                 name="debtorAgent.financialInstitutionId.clearingSystemId.id"
-                required
+                required={true}
               />
-              <label for="idType">ID Type </label>
-              <input
-                type="text"
-                id="idType"
+              <FormInput
+                label="idType"
+                text="ID Type"
                 name="debtorAgent.financialInstitutionId.clearingSystemId.idType"
-                required
+                required={true}
               />
             </fieldset>
           </fieldset>
@@ -110,25 +114,23 @@ function App() {
 
         <fieldset name="creditor">
           <legend>Creditor</legend>
-          <label for="creditorName">Creditor Name</label>
-          <input
-            type="text"
-            id="creditorName"
+          <FormInput
+            text="Creditor Name"
+            label="creditorName"
             name="creditor.creditorName"
             required
           />
 
           <fieldset name="creditorAccount">
             <legend>Creditor Account</legend>
-            <label for="creditorAccountId">Account Id</label>
-            <input
-              type="text"
+            <FormInput
+              text="Account Id"
               id="creditorAccountId"
               name="creditor.creditorAccount.accountId"
               required
             />
-            <label for="creditorAccountCurrency">Account Currency</label>
-            <input
+            <FormInput
+              text="Account Currency"
               type="text"
               id="creditorAccountCurrency"
               name="creditor.creditorAccount.accountCurrency"
@@ -143,16 +145,14 @@ function App() {
             <legend>Financial Institution Id</legend>
             <fieldset name="creditorClearingSystemId">
               <legend>Clearing System Id</legend>
-              <label for="creditorId">Id</label>
-              <input
-                type="text"
+              <FormInput
+                text="Id"
                 id="creditorId"
                 name="creditorAgent.financialInstitutionId.clearingSystemId.id"
                 required
               />
-              <label for="creditorIdType">ID Type </label>
-              <input
-                type="text"
+              <FormInput
+                text="ID Type"
                 id="creditorIdType"
                 name="creditorAgent.financialInstitutionId.clearingSystemId.idType"
                 required
