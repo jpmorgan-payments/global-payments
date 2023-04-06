@@ -16,6 +16,7 @@ coverage
 *.iml
 .vscode
 *.icloud
+*.code-workspace
 
 # Logs
 npm-debug.log*

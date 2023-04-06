@@ -4,7 +4,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import https from "https"
 import * as jose from 'jose'
-import {createProxyMiddleware}  from 'http-proxy-middleware';
+import {createProxyMiddleware, responseInterceptor}  from 'http-proxy-middleware';
 
 require('dotenv').config();
 
@@ -22,16 +22,26 @@ async function createProxyConfiguration(target: string) {
     target,
     changeOrigin: true,
     selfHandleResponse: true,
+    pathRewrite: {
+      '^/api/': '',
+    },
     agent: new https.Agent(httpsOptions),
-    pathRewrite:{
-        '^/api/': '',
-      },
     onError: (err: Error) => {
       console.log(err);
     },
   };
   return createProxyMiddleware(options);
 }
+
+const handleProxyResponse = async (responseBuffer: Buffer, proxyRes: any, req: any): Promise<string | Buffer> => {
+  const exchange = `[${req.method}] [${proxyRes.statusCode}] ${req.path} -> ${proxyRes.req.protocol}//${proxyRes.req.host}${proxyRes.req.path}`;
+  console.log(exchange);
+  if (proxyRes.headers['content-type'] === 'application/json') {
+    const data = JSON.parse(responseBuffer.toString('utf8'));
+    return JSON.stringify(data);
+  }
+  return responseBuffer;
+};
 
 // Proxy function to forward any requests straight through to API server with added digital signature in the body
 async function createProxyConfigurationForDigital(target:string, digitalSignature:string) {
@@ -50,6 +60,7 @@ async function createProxyConfigurationForDigital(target:string, digitalSignatur
         proxyReq.write(digitalSignature);
       }
     },
+    onProxyRes: responseInterceptor(handleProxyResponse),
     onError: (err:Error) => {
       console.log(err);
     },
