@@ -27,8 +27,6 @@ public class JWTDemo
      * @return a Private Key object
      */
     private static PrivateKey gatherPrivateKey(String key) {
-        System.out.println(key);
-        System.out.println(formatKeyString(key));
         byte[] prvKeyBytes = DatatypeConverter.parseBase64Binary(formatKeyString(key));
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(prvKeyBytes);
         PrivateKey prvKey = null;
