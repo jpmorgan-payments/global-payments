@@ -16,6 +16,7 @@ public class JWTDemo
 
     private static String formatKeyString(String key) {
         return key.replace("-----BEGIN PRIVATE KEY-----", "").replace("-----END PRIVATE KEY-----", "")
+                .replace("-----BEGIN RSA PRIVATE KEY-----", "").replace("-----END RSA PRIVATE KEY-----", "")
                 .replace("\\n", "").replaceAll("\\s+", "");
     }
 
@@ -27,8 +28,6 @@ public class JWTDemo
      * @return a Private Key object
      */
     private static PrivateKey gatherPrivateKey(String key) {
-        System.out.println(key);
-        System.out.println(formatKeyString(key));
         byte[] prvKeyBytes = DatatypeConverter.parseBase64Binary(formatKeyString(key));
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(prvKeyBytes);
         PrivateKey prvKey = null;
