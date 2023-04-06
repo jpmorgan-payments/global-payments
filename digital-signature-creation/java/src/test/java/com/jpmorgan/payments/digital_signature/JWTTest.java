@@ -28,7 +28,7 @@ public class JWTTest
 
     PublicKey formatPublicKey(String key) {
         String formattedKey = key.replace("-----BEGIN PUBLIC KEY-----", "")
-                .replace("-----END PUBLIC KEY-----", "").replace("\\n", "").replaceAll("\\s+","");
+                .replace("-----END PUBLIC KEY-----", "").replace("\\n", "").replaceAll("\\s+", "");
 
         X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(Base64.getDecoder().decode(formattedKey));
         PublicKey publicKey = null;
@@ -45,7 +45,8 @@ public class JWTTest
 
     @Test
     void assertSignatureCreated() {
-
+        System.out.println(privateKey);
+        System.out.println(publicKey);
         String result = JWTDemo.createJWT(payload, privateKey);
 
         PublicKey pKey = formatPublicKey(publicKey);
