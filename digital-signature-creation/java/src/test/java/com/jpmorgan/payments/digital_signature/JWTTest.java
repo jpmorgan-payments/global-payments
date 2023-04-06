@@ -45,8 +45,6 @@ public class JWTTest
 
     @Test
     void assertSignatureCreated() {
-        System.out.println(privateKey);
-        System.out.println(publicKey);
         String result = JWTDemo.createJWT(payload, privateKey);
 
         PublicKey pKey = formatPublicKey(publicKey);
