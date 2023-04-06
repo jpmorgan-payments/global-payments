@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { ClientRequest } from "http";
 import express from "express";
-import bodyParser, { json } from "body-parser";
+import bodyParser from "body-parser";
 import https from "https"
 import * as jose from 'jose'
 import {createProxyMiddleware, responseInterceptor}  from 'http-proxy-middleware';
