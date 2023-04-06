@@ -16,7 +16,6 @@ public class JWTDemo
 
     private static String formatKeyString(String key) {
         return key.replace("-----BEGIN PRIVATE KEY-----", "").replace("-----END PRIVATE KEY-----", "")
-                .replace("-----BEGIN RSA PRIVATE KEY-----", "").replace("-----END RSA PRIVATE KEY-----", "")
                 .replace("\\n", "").replaceAll("\\s+", "");
     }
 
