@@ -10,6 +10,7 @@ require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
+app.use(express.urlencoded({  extended: true }));
 
 const httpsOptions = {
     key:process.env.KEY,
@@ -82,6 +83,10 @@ const generateJWTJose = async (body) => {
   };
 
 app.use('/api/digitalSignature/*', async (req, res, next) => {
+  // Fix for some frontends sending payment amount as a string
+  if(req.body.payments?.paymentAmount){
+    req.body.payments.paymentAmount = parseInt(req.body.payments.paymentAmount)
+  }
   const digitalSignature = await generateJWTJose(req.body);
   const func = await createProxyConfigurationForDigital('https://apigatewaycat.jpmorgan.com', digitalSignature);
   func(req, res, next);

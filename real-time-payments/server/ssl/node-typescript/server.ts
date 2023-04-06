@@ -10,6 +10,7 @@ require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
+app.use(express.urlencoded({  extended: true }));
 
 const httpsOptions = {
     key:process.env.KEY,
@@ -55,6 +56,7 @@ async function createProxyConfigurationForDigital(target:string, digitalSignatur
     },
     onProxyReq: async (proxyReq:ClientRequest, req:Request) => {
       if (req.body) {
+        console.log(req.body)
         proxyReq.setHeader('Content-Type', 'text/xml');
         proxyReq.setHeader('Content-Length', Buffer.byteLength(digitalSignature));
         proxyReq.write(digitalSignature);
@@ -80,6 +82,10 @@ const generateJWTJose = async (body: jose.JWTPayload) => {
 };
 
 app.use('/api/digitalSignature/*', async (req:Request, res:Response, next:NextFunction) => {
+  // Fix for some frontends sending payment amount as a string
+  if(req.body.payments?.paymentAmount){
+    req.body.payments.paymentAmount = parseInt(req.body.payments.paymentAmount)
+  }
   const digitalSignature = await generateJWTJose(req.body);
   console.log(digitalSignature)
   const func = await createProxyConfigurationForDigital('https://apigatewaycat.jpmorgan.com', digitalSignature);
