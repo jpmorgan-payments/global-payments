@@ -2,18 +2,44 @@ import React from "react";
 import FormInput from "./components/formInput";
 import "./css/App.css";
 
-const sendPaymentClicked = () => {
-  console.log("ere");
-};
 function App() {
+  function handleSubmit(e) {
+    // Prevent the browser from reloading the page
+    e.preventDefault();
+
+    // Read the form data
+    const form = e.target;
+    const formData = new FormData(form);
+
+    var formObject = {};
+    console.log(formData);
+    formData.forEach((value, key) => {
+      if(key.includes('.')){
+        key.split('.').forEach(keySection => {
+          
+        })
+      }
+      console.log(value);
+      console.log(key);
+      formObject[key] = value;
+    });
+    console.log(JSON.parse(JSON.stringify(formObject)));
+
+    const paymentsObjects = {
+      payments: formObject,
+    };
+
+    // You can pass formData as a fetch body directly:
+    fetch("/api/digitalSignature/tsapi/v1/payments", {
+      method: form.method,
+      body: JSON.stringify(paymentsObjects),
+    });
+  }
+
   return (
     <main>
       <h1>JP Morgan Global Payments Sample</h1>
-      <form
-        method="POST"
-        id="paymentsForm"
-        onSubmit={() => sendPaymentClicked()}
-      >
+      <form method="POST" id="paymentsForm" onSubmit={handleSubmit}>
         <label htmlFor="paymentType">Payment Type</label>
         <select id="paymentType" name="paymentType" required defaultValue="RTP">
           <option value="RTP">RTP</option>
@@ -42,7 +68,7 @@ function App() {
           <FormInput
             label="endToEndId"
             text="End to end ID"
-            name="paymentsIdentifiers.endToEndId"
+            name="paymentsIdentifiers[endToEndId]"
             required={true}
           />
         </fieldset>
@@ -82,13 +108,10 @@ function App() {
               label="accountCurrency"
               text="Account Currency"
               name="debtor.debtorAccount.accountCurrency"
-              type="number"
               required={true}
             />
           </fieldset>
         </fieldset>
-
-        <FormInput label="" text="" name="" required={true} />
 
         <fieldset name="debtorAgent">
           <legend>Debtor Agent</legend>
@@ -160,7 +183,7 @@ function App() {
             </fieldset>
           </fieldset>
         </fieldset>
-        <button type="submit">Initiate US RTP Payment</button>
+        <button type="submit">Initiate US RTP Payments</button>
       </form>
     </main>
   );

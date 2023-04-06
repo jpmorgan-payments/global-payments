@@ -9,7 +9,6 @@
 
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/global.css">
-  <script type="text/javascript" src="submit.js"></script>
 
 </head>
 
@@ -17,34 +16,34 @@
   <main class="main">
     <h1>JP Morgan Global Payments Sample</h1>
 
-    <form method="POST" id="paymentsForm" onsubmit="return sendPaymentClicked()">
+    <form method="POST" action="http://localhost:4242/api/digitalSignature/tsapi/v1/payments">
 
       <label for="paymentType">Payment Type</label>
-      <select id="paymentType" name="paymentType" required>
+      <select id="paymentType" name="payments[paymentType]" required>
         <option value="RTP" selected>RTP</option>
       </select>
 
       <label for="paymentCurrency">Payment Currency</label>
-      <select id="paymentCurrency" name="paymentCurrency" required>
+      <select id="paymentCurrency" name="payments[paymentCurrency]" required>
         <option value="USD" selected>USD</option>
       </select>
 
       <label for="requestedExecutionDate">Requested Execution Date</label>
-      <input type="date" id="requestedExecutionDate" name="requestedExecutionDate" required />
+      <input type="date" id="requestedExecutionDate" name="payments[requestedExecutionDate]" required />
 
       <fieldset name="paymentsIdentifiers">
         <legend>Payments Identifiers</legend>
         <label for="endToEndId">End to end ID</label>
-        <input type="text" id="endToEndId" name="paymentsIdentifiers.endToEndId" required />
+        <input type="text" id="endToEndId" name="payments[paymentIdentifiers][endToEndId]" required />
       </fieldset>
 
 
 
       <label for="paymentAmount">Payment Amount</label>
-      <input type="number" id="paymentAmount" name="paymentAmount" required />
+      <input type="number" id="paymentAmount" name="payments[paymentAmount]" required />
 
       <label for="transferType">Transfer Type</label>
-      <select name="transferType" id="transferType">
+      <select name="payments[transferType]" id="transferType">
         <option value="CREDIT">CREDIT</option>
         <option value="DEBIT">DEBIT</option>
       </select>
@@ -52,14 +51,14 @@
       <fieldset name="debtor">
         <legend>Debtor</legend>
         <label for="debtorName">Debtor Name</label>
-        <input type="text" id="debtorName" name="debtor.debtorName" required />
+        <input type="text" id="debtorName" name="payments[debtor][debtorName]" required />
 
         <fieldset name="debtorAccount">
           <legend>Debtor Account</legend>
           <label for="accountId">Account Id</label>
-          <input type="text" id="accountId" name="debtor.debtorAccount.accountId" required />
+          <input type="text" id="accountId" name="payments[debtor][debtorAccount][accountId]" required />
           <label for="accountCurrency">Account Currency</label>
-          <input type="text" id="accountCurrency" name="debtor.debtorAccount.accountCurrency" required />
+          <input type="text" id="accountCurrency" name="payments[debtor][debtorAccount][accountCurrency]" required />
         </fieldset>
       </fieldset>
 
@@ -70,43 +69,46 @@
           <fieldset name="clearingSystemId">
             <legend>Clearing System Id</legend>
             <label for="id">Id</label>
-            <input type="text" id="id" name="debtorAgent.financialInstitutionId.clearingSystemId.id" required />
+            <input type="text" id="id" name="payments[debtorAgent][financialInstitutionId][clearingSystemId][id]"
+              required />
             <label for="idType">ID Type </label>
-            <input type="text" id="idType" name="debtorAgent.financialInstitutionId.clearingSystemId.idType" required />
+            <input type="text" id="idType"
+              name="payments[debtorAgent][financialInstitutionId][clearingSystemId][idType]" required />
           </fieldset>
         </fieldset>
       </fieldset>
 
-      <fieldset name="creditor">
+      <fieldset>
         <legend>Creditor</legend>
         <label for="creditorName">Creditor Name</label>
-        <input type="text" id="creditorName" name="creditor.creditorName" required />
+        <input type="text" id="creditorName" name="payments[creditor][creditorName]" required />
 
-        <fieldset name="creditorAccount">
+        <fieldset>
           <legend>Creditor Account</legend>
           <label for="creditorAccountId">Account Id</label>
-          <input type="text" id="creditorAccountId" name="creditor.creditorAccount.accountId" required />
+          <input type="text" id="creditorAccountId" name="payments[creditor][creditorAccount][accountId]" required />
           <label for="creditorAccountCurrency">Account Currency</label>
-          <input type="text" id="creditorAccountCurrency" name="creditor.creditorAccount.accountCurrency" required />
+          <input type="text" id="creditorAccountCurrency" name="payments[creditor][creditorAccount][accountCurrency]"
+            required />
         </fieldset>
       </fieldset>
 
-      <fieldset name="creditorAgent">
+      <fieldset>
         <legend>Creditor Agent</legend>
-        <fieldset name="creditorFinancialInstitutionId">
+        <fieldset>
           <legend>Financial Institution Id</legend>
-          <fieldset name="creditorClearingSystemId">
+          <fieldset>
             <legend>Clearing System Id</legend>
             <label for="creditorId">Id</label>
-            <input type="text" id="creditorId" name="creditorAgent.financialInstitutionId.clearingSystemId.id"
-              required />
+            <input type="text" id="creditorId"
+              name="payments[creditorAgent][financialInstitutionId][clearingSystemId][id]" required />
             <label for="creditorIdType">ID Type </label>
-            <input type="text" id="creditorIdType" name="creditorAgent.financialInstitutionId.clearingSystemId.idType"
-              required />
+            <input type="text" id="creditorIdType"
+              name="payments[creditorAgent][financialInstitutionId][clearingSystemId][idType]" required />
           </fieldset>
         </fieldset>
       </fieldset>
-      <button type="submit">Initiate US RTP Payment</button>
+      <button type="submit">Initiate Payment</button>
 
     </form>
     </div>

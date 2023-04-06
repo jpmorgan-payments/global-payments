@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { ClientRequest } from "http";
 import express from "express";
-import bodyParser from "body-parser";
+import bodyParser, { json } from "body-parser";
 import https from "https"
 import * as jose from 'jose'
 import {createProxyMiddleware, responseInterceptor}  from 'http-proxy-middleware';
@@ -10,6 +10,18 @@ require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
+app.use(express.urlencoded({  extended: true }));
+
+
+app.post('/order', (req, res) => {
+  console.log(req.body);
+  console.log(typeof req.body);
+  if(req.body.payments.paymentAmount){
+    req.body.payments.paymentAmount = parseInt(req.body.payments.paymentAmount)
+  }
+  console.log(req.body);
+  res.json(req.body);
+});
 
 const httpsOptions = {
     key:process.env.KEY,
@@ -55,6 +67,7 @@ async function createProxyConfigurationForDigital(target:string, digitalSignatur
     },
     onProxyReq: async (proxyReq:ClientRequest, req:Request) => {
       if (req.body) {
+        console.log(req.body)
         proxyReq.setHeader('Content-Type', 'text/xml');
         proxyReq.setHeader('Content-Length', Buffer.byteLength(digitalSignature));
         proxyReq.write(digitalSignature);
@@ -80,6 +93,9 @@ const generateJWTJose = async (body: jose.JWTPayload) => {
 };
 
 app.use('/api/digitalSignature/*', async (req:Request, res:Response, next:NextFunction) => {
+  if(req.body.payments.paymentAmount){
+    req.body.payments.paymentAmount = parseInt(req.body.payments.paymentAmount)
+  }
   const digitalSignature = await generateJWTJose(req.body);
   console.log(digitalSignature)
   const func = await createProxyConfigurationForDigital('https://apigatewaycat.jpmorgan.com', digitalSignature);
