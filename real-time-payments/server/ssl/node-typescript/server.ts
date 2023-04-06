@@ -12,17 +12,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.urlencoded({  extended: true }));
 
-
-app.post('/order', (req, res) => {
-  console.log(req.body);
-  console.log(typeof req.body);
-  if(req.body.payments.paymentAmount){
-    req.body.payments.paymentAmount = parseInt(req.body.payments.paymentAmount)
-  }
-  console.log(req.body);
-  res.json(req.body);
-});
-
 const httpsOptions = {
     key:process.env.KEY,
     cert: process.env.CERT
@@ -93,7 +82,8 @@ const generateJWTJose = async (body: jose.JWTPayload) => {
 };
 
 app.use('/api/digitalSignature/*', async (req:Request, res:Response, next:NextFunction) => {
-  if(req.body.payments.paymentAmount){
+  // Fix for some frontends sending payment amount as a string
+  if(req.body.payments?.paymentAmount){
     req.body.payments.paymentAmount = parseInt(req.body.payments.paymentAmount)
   }
   const digitalSignature = await generateJWTJose(req.body);
