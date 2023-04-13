@@ -1,8 +1,10 @@
 import React from "react";
 import FormInput from "./components/formInput";
 import "./css/App.css";
+import { form2json } from "./utils";
 
 function App() {
+  const [response, setResponse] = React.useState();
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   function handleSubmit(e) {
@@ -12,19 +14,40 @@ function App() {
     // Read the form data
     const form = e.target;
     const formData = new FormData(form);
-    const formJson = Object.fromEntries(formData.entries());
-    // You can pass formData as a fetch body directly:
+    const json = form2json(formData);
+    console.log(json);
+
+    //You can pass formData as a fetch body directly:
     fetch("/api/digitalSignature/tsapi/v1/payments", {
       method: form.method,
-      body: JSON.stringify(formJson),
+      body: json,
       headers: myHeaders,
-    });
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response
+            .json()
+            .catch(() => {
+              // Couldn't parse the JSON
+              setResponse(response.status);
+            })
+            .then(({ message }) => {
+              // Got valid JSON with error response, use it
+              setResponse(message || response.status);
+            });
+        }
+        // Successful response, parse the JSON and return the data
+        return response.json();
+      })
+      .then((data) => {
+        setResponse(data);
+      });
   }
 
   return (
     <main>
       <h1>JP Morgan Global Payments Sample</h1>
-      <form method="POST" action="/api/digitalSignature/tsapi/v1/payments">
+      <form method="POST" onSubmit={handleSubmit}>
         <label htmlFor="paymentType">Payment Type</label>
         <select
           id="paymentType"
@@ -175,6 +198,18 @@ function App() {
         </fieldset>
         <button type="submit">Initiate US RTP Payments</button>
       </form>
+      {response && (
+        <div>
+          <h2>API Response:</h2>
+
+          <pre
+            id="json"
+            className="border-2 border-dashed border-gray-200 w-full m-2 p-2 overflow-x-auto mb-10"
+          >
+            {JSON.stringify(response, undefined, 2)}
+          </pre>
+        </div>
+      )}
     </main>
   );
 }

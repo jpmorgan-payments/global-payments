@@ -10,6 +10,7 @@ PRIVATE_KEY_FILE_PATH = './private.key'
 TRANSPORT_CERT_FILE_PATH = './transport.crt'
 TRANSPORT_KEY_FILE_PATH = './transport.key'
 
+
 class ApiProxy:
     def start_server(self):
         class ProxyHTTPRequestHandler(BaseHTTPRequestHandler):
@@ -54,7 +55,12 @@ class ApiProxy:
                 self.wfile.flush()
 
             def _handle_digital_signature(self, body):
+
                 corrected_body = json.loads(body.decode("utf-8"))
+                # API needs Payment Amount to be a number
+                corrected_body['payments']['paymentAmount'] = int(
+                    corrected_body['payments']['paymentAmount'])
+
                 with open(PRIVATE_KEY_FILE_PATH, 'r') as file:
                     # Read the contents of the private key
                     contents = file.read()
