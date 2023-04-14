@@ -8,8 +8,9 @@ in the directory on how to run.
 
 - [JavaScript (Node)](./node/README.md)
 - [TypeScript (Node)](./node-typescript/README.md)
+- [Python](./python/README.md)
 
-# Setting up your .env file
+# Setting up your .env file (not required for Python)
 
 Rename and move the [`.env.example`](.env.example) file into a file named`.env` in the specific folder of the server language you want to use. For example:
 
