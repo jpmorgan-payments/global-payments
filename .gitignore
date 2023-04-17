@@ -30,3 +30,9 @@ target
 
 # ChatGPT output
 test
+
+
+*.key
+*.csr
+*.crt
+*.pyc

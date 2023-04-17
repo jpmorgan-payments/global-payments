@@ -10,13 +10,31 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/global.css">
 
+  <script type="text/javascript" src="submit.js"></script>
+  <script>
+
+    window.addEventListener("load", (event) => {
+      // Get the form element
+      const form = document.getElementById("paymentsForm");
+
+      // Add 'submit' event handler
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData(form);
+
+        submitForm(formData);
+      });
+    });
+
+  </script>
+
 </head>
 
 <body>
   <main class="main">
     <h1>JP Morgan Global Payments Sample</h1>
 
-    <form method="POST" action="http://localhost:4242/api/digitalSignature/tsapi/v1/payments">
+    <form id="paymentsForm">
 
       <label for="paymentType">Payment Type</label>
       <select id="paymentType" name="payments[paymentType]" required>
@@ -36,8 +54,6 @@
         <label for="endToEndId">End to end ID</label>
         <input type="text" id="endToEndId" name="payments[paymentIdentifiers][endToEndId]" required />
       </fieldset>
-
-
 
       <label for="paymentAmount">Payment Amount</label>
       <input type="number" id="paymentAmount" name="payments[paymentAmount]" required />
