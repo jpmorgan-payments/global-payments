@@ -1,6 +1,6 @@
 # Real time payments US Node Server
 
-An [Express server](http://expressjs.com) implementation
+An [Express server](http://expressjs.com) implementation. This is example code and will need additional configuration to be production ready. Never commit your certificats/secrets/keys etc.
 
 ## Requirements
 
