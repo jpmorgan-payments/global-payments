@@ -31,6 +31,10 @@ target
 # ChatGPT output
 test
 
+# Java/certs
+**/*/resources/static/**
+application-local.yml 
+**/*/certs/
 
 *.key
 *.csr
