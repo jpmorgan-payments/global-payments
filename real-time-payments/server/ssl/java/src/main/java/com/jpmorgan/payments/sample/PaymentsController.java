@@ -38,7 +38,7 @@ public class PaymentsController {
     @Autowired
     DigitalSignatureGenerator digitalSignatureGenerator;
     @PostMapping("/tsapi/v1/payments")
-    public ResponseEntity digitalSignature(@RequestBody String body) throws Exception {
+    public ResponseEntity<String> digitalSignature(@RequestBody String body) throws Exception {
         String digitalSignature = digitalSignatureGenerator.createJWT(body);
         String outgoingUrl = url + globalPaymentsPath;
         RestTemplate restTemplate =  generateRestTemplate();
