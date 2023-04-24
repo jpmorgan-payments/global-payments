@@ -38,7 +38,6 @@ public class PaymentRequest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println(Objects.requireNonNull(json).getAsString("accessToken"));
         return json.getAsString("accessToken");
     }
 
