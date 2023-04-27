@@ -9,14 +9,4 @@ spring:
           google:
             clientId: 695596589328-4gsiv915dv2qjemduoaghdj1db65sn4k.apps.googleusercontent.com
             clientSecret: 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
-          scope:
-            - user:email
-            - read:user
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: "*"
-#  endpoint:
-#    env:
-#      enabled: true
+
