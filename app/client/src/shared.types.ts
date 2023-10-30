@@ -1,4 +1,4 @@
 export type TransactionManagement = {
-  paymentsId: string[];
-  setPaymentsId: (paymentId: string[]) => void;
+  endToEndIds: string[];
+  setEndToEndIds: (endToEndId: string[]) => void;
 };

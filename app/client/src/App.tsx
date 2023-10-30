@@ -9,6 +9,8 @@ import { Layout } from 'components';
 import { NotFoundErrorPage, OverviewPage, InitiateAPaymentPage } from 'pages';
 
 import { themes } from 'themes';
+import { previousPaymentMock } from 'mocks/previousPaymentMock';
+import { PaymentDetailsResponse } from 'generated-api-models';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,8 +20,13 @@ const queryClient = new QueryClient({
 
 const App = () => {
   const [themeName, setThemeName] = useState<string>(Object.keys(themes)[0]);
-  const [paymentsId, setPaymentsId] = useState<string[]>([]);
-  console.log('here');
+  const previousPaymentsMock: PaymentDetailsResponse[] = previousPaymentMock;
+  const initialEndToEndIds = previousPaymentsMock.map((payment) =>
+    payment.payments ? payment.payments.paymentIdentifiers.endToEndId : '',
+  );
+
+  const [endToEndIds, setEndToEndIds] = useState<string[]>(initialEndToEndIds);
+
   return (
     <QueryClientProvider client={queryClient}>
       <MantineProvider
@@ -43,8 +50,8 @@ const App = () => {
                   path="payments"
                   element={
                     <InitiateAPaymentPage
-                      paymentsId={paymentsId}
-                      setPaymentsId={setPaymentsId}
+                    endToEndIds={endToEndIds}
+                    setEndToEndIds={setEndToEndIds}
                     />
                   }
                 />
