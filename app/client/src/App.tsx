@@ -6,15 +6,9 @@ import { ModalsProvider } from '@mantine/modals';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { Layout } from 'components';
-import {
-  NotFoundErrorPage,
-  OverviewPage,
-  OnlineGoodsAndServicesPage,
-} from 'pages';
+import { NotFoundErrorPage, OverviewPage, InitiateAPaymentPage } from 'pages';
 
 import { themes } from 'themes';
-import { paymentAuthorizeResponseListMock } from 'mocks/paymentAuthorizeResponseList.mock';
-import { paymentResponse } from 'generated-api-models';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,15 +17,9 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
-  const previousTransactionsMock: paymentResponse[] =
-    paymentAuthorizeResponseListMock;
-
-  const initialTransactionIds = previousTransactionsMock.map(
-    (transaction) => transaction.transactionId,
-  );
   const [themeName, setThemeName] = useState<string>(Object.keys(themes)[0]);
-  const [paymentsId, setPaymentsId] = useState<string[]>(initialTransactionIds);
-
+  const [paymentsId, setPaymentsId] = useState<string[]>([]);
+  console.log('here');
   return (
     <QueryClientProvider client={queryClient}>
       <MantineProvider
@@ -55,8 +43,8 @@ const App = () => {
                   path="payments"
                   element={
                     <InitiateAPaymentPage
-                      paymentsId={transactionIds}
-                      setTransactionIds={setTransactionIds}
+                      paymentsId={paymentsId}
+                      setPaymentsId={setPaymentsId}
                     />
                   }
                 />

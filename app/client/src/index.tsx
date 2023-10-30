@@ -13,7 +13,6 @@ async function prepare() {
 prepare().then(() => {
   const container = document.getElementById('root');
   const root = ReactDOMClient.createRoot(container as Element);
-
   root.render(
     <React.StrictMode>
       <App />

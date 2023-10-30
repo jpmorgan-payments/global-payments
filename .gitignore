@@ -1,42 +1,46 @@
-# Dependencies
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+
+# dependencies
 node_modules
-env
+/.pnp
+.pnp.js
 
-# Testing
-coverage
+# testing
+/coverage
+packages/*/coverage
+cypress/results
+test-results
 
-# Misc
-.DS_Store
-.eslintcache
-.env
-
-
-# Editors
-.idea
-*.iml
-.vscode
-*.icloud
-*.code-workspace
-
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Builds
-dist
+# production
 build
-target
+dist
 
-# ChatGPT output
-test
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.vscode
+.idea
+.nyc_output
+.DS_Store
+.awcache
+.cache-loader
+.cache
+.rpt2_cache
+.eslintcache
 
-# Java/certs
-**/*/resources/static/**
-application-local.yml 
-**/*/certs/
+# logs
+*.log*
+*-debug.log*
+*-error.log*
 
-*.key
-*.csr
-*.crt
-*.pyc
+
+# Vim buffer files
+*.swp
+
+generated-api-models
+
+*.code-workspace

@@ -1,28 +1,17 @@
-import { Badge, Anchor, Text } from '@mantine/core';
+import { Text, SimpleGrid } from '@mantine/core';
 import { PageWrapper } from 'components/PageWrapper/PageWrapper';
-import { GITHUB_REPO, ONLINE_PAYMENTS_DOC_HOME } from 'data/constants';
-import { OnlineGoodsAndServicesPanel } from 'features/onlineGoodsAndServices';
+import { GITHUB_REPO } from 'data/constants';
 import { TransactionManagement } from 'shared.types';
 
-export const export const InitiateAPaymentPage = (props: TransactionManagement) => {
-  = (props: TransactionManagement) => {
+export const InitiateAPaymentPage = (props: TransactionManagement) => {
   return (
     <PageWrapper
-      title="Online Goods and Services"
+      title="Initiate A Payment"
       apiEndpoint="/payments"
       githubLink={`${GITHUB_REPO}/tree/main/app/client/src/features/Payments`}
     >
-      <Text>
-        This is our Online Goods and Services section of our application. These
-        are flows you may wish to use when handling payments for any
-        goods/services purchased online. Within this page you can Authorize a
-        Payment, Capture a Payment and Refund a Payment. You can check out
-        further documentation on this API{' '}
-        <Anchor href={ONLINE_PAYMENTS_DOC_HOME} target="_blank">
-          here.
-        </Anchor>
-      </Text>
-      <OnlineGoodsAndServicesPanel {...props} />
+      <Text>TODO</Text>
+      <SimpleGrid></SimpleGrid>
     </PageWrapper>
   );
 };

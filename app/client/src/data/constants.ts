@@ -1,7 +1,7 @@
 export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 export const GITHUB_REPO =
-  'https://github.com/jpmorgan-payments/online-payments';
+  'https://github.com/jpmorgan-payments/global-payments';
 
 export const MERCHANT_ID = '998482157632';
 

@@ -1,15 +1,15 @@
 import { Link, LinkProps, useMatch, useResolvedPath } from 'react-router-dom';
 import { UnstyledButton } from '@mantine/core';
-import { IconExchange, IconHome } from '@tabler/icons';
+import { IconExchange, IconHome, IconReportMoney } from '@tabler/icons';
 
 import useStyles from './NavbarLinks.styles';
 
 const links = [
   { link: 'overview', label: 'Overview', icon: IconHome },
   {
-    link: 'onlineGoodsServices',
-    label: 'Online goods and services',
-    icon: IconExchange,
+    link: 'payments',
+    label: 'Initiate a Payment',
+    icon: IconReportMoney,
   },
 ];
 
