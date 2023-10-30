@@ -1,0 +1,1 @@
+export { OnlineGoodsAndServicesPanel } from './InitiateAPaymentPanel';
