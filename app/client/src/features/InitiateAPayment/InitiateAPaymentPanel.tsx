@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { useForm } from '@mantine/form';
 import { Container, SimpleGrid, Stack } from '@mantine/core';
 import { Select, Group, Button, LoadingOverlay } from '@mantine/core';
+import { createPaymentResponse } from 'data/createPaymentResponse';
 enum FormStateEnum {
   LOADING = 'Making a payment',
   INITIAL = 'Review & Submit',
@@ -30,6 +31,15 @@ export const InitiateAPaymentPanel = () => {
     form.reset();
     setFormState(FormStateEnum.INITIAL);
   };
+
+  const paymentRequest = useMemo(
+    () => convertToPaymentRequest(form.values),
+    [form.values],
+  );
+  const paymentResponse = useMemo(
+    () => createPaymentResponse(paymentRequest),
+    [form.values],
+  );
   return (
     <Panel
       title="Initiate a Payment"
