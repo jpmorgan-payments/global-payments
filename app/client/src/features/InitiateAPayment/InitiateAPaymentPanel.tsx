@@ -5,6 +5,7 @@ import { useForm } from '@mantine/form';
 import { Container, SimpleGrid, Stack } from '@mantine/core';
 import { Select, Group, Button, LoadingOverlay } from '@mantine/core';
 import { createPaymentResponse } from 'data/createPaymentResponse';
+import { UsRtpPaymentCreateMock } from 'mocks/usRtpPaymentCreateMock';
 enum FormStateEnum {
   LOADING = 'Making a payment',
   INITIAL = 'Review & Submit',
@@ -14,6 +15,21 @@ enum FormStateEnum {
 enum PaymentTypeEnum {
   US_RTP = 'US RTP',
 }
+
+type FormValuesType = {
+  paymentType?: PaymentTypeEnum;
+};
+
+const convertToPaymentRequest = (values: FormValuesType) => {
+  switch (values.paymentType) {
+    case PaymentTypeEnum.US_RTP:
+      const response = UsRtpPaymentCreateMock;
+      response.payments.paymentIdentifiers.endToEndId = crypto.randomUUID();
+      return response;
+    default:
+      return UsRtpPaymentCreateMock;
+  }
+};
 
 export const InitiateAPaymentPanel = () => {
   const queryClient = useQueryClient();
@@ -45,6 +61,9 @@ export const InitiateAPaymentPanel = () => {
       title="Initiate a Payment"
       apiCallType="POST"
       apiEndpoint="/payments"
+      requestBody={paymentRequest}
+      responseBody={paymentResponse}
+      objectDisplayHeight={600}
     >
       <Container pos="relative">
         {formState !== FormStateEnum.COMPLETE ? (
