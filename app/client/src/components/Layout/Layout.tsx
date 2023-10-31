@@ -86,7 +86,7 @@ export const Layout = ({
                   : theme.colors.dark[4]
               }
             >
-              {lessThanSm ? 'OP Showcase' : 'Online Payments Showcase'}
+              {lessThanSm ? 'GP Showcase' : 'Global Payments Showcase'}
             </Text>
 
             <ThemeSelectMenu {...themeProps} />
