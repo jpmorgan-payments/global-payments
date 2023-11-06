@@ -1,6 +1,6 @@
 import { Panel, SuccessAlert } from 'components';
 import { useMemo, useState } from 'react';
-import { useForm } from '@mantine/form';
+import { useForm, isInRange } from '@mantine/form';
 import {
   Anchor,
   Container,
@@ -94,6 +94,10 @@ export const InitiateAPaymentPanel = ({
       debtor: JSON.stringify(USRTPDebtorMockValues[0]),
       creditor: JSON.stringify(USRTPCreditorMockValues[1]),
       date: new Date(),
+    },
+    validate: {
+      amount: (value) =>
+        value < 0 ? 'You must enter an amount greater than 0' : null,
     },
   });
 
