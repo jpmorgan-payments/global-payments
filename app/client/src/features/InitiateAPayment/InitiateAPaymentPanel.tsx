@@ -1,4 +1,3 @@
-import { useQueryClient } from '@tanstack/react-query';
 import { Panel, SuccessAlert } from 'components';
 import { useMemo, useState } from 'react';
 import { useForm } from '@mantine/form';
@@ -6,6 +5,8 @@ import { Container, SimpleGrid, Stack } from '@mantine/core';
 import { Select, Group, Button, LoadingOverlay } from '@mantine/core';
 import { createPaymentResponse } from 'data/createPaymentResponse';
 import { UsRtpPaymentCreateMock } from 'mocks/usRtpPaymentCreateMock';
+import { USRTPDebtorMockValues } from 'mocks/debtorMockValues';
+import { Debtor } from 'generated-api-models';
 enum FormStateEnum {
   LOADING = 'Making a payment',
   INITIAL = 'Review & Submit',
@@ -18,6 +19,7 @@ enum PaymentTypeEnum {
 
 type FormValuesType = {
   paymentType?: PaymentTypeEnum;
+  debtor?: Debtor;
 };
 
 const convertToPaymentRequest = (values: FormValuesType) => {
@@ -25,6 +27,9 @@ const convertToPaymentRequest = (values: FormValuesType) => {
     case PaymentTypeEnum.US_RTP:
       const response = UsRtpPaymentCreateMock;
       response.payments.paymentIdentifiers.endToEndId = crypto.randomUUID();
+      if (values.debtor) {
+        response.payments.debtor = values.debtor;
+      }
       return response;
     default:
       return UsRtpPaymentCreateMock;
@@ -32,7 +37,6 @@ const convertToPaymentRequest = (values: FormValuesType) => {
 };
 
 export const InitiateAPaymentPanel = () => {
-  const queryClient = useQueryClient();
   const [formState, setFormState] = useState<FormStateEnum>(
     FormStateEnum.INITIAL,
   );
@@ -40,6 +44,7 @@ export const InitiateAPaymentPanel = () => {
   const form = useForm({
     initialValues: {
       paymentType: PaymentTypeEnum.US_RTP,
+      debtor: USRTPDebtorMockValues[0],
     },
   });
 
@@ -56,6 +61,27 @@ export const InitiateAPaymentPanel = () => {
     () => createPaymentResponse(paymentRequest),
     [form.values],
   );
+
+  const convertToSelectValue = <Obj, FirstKey extends keyof Obj>(
+    obj: Obj[],
+    firstKey: FirstKey,
+  ) => {
+    return obj.map((value, index) => {
+      return {
+        key: index,
+        value: value,
+        label: value[firstKey],
+      };
+    });
+  };
+
+  const selectOptions = useMemo(() => {
+    return {
+      debtor: convertToSelectValue(USRTPDebtorMockValues, 'debtorName'),
+      creditor: {},
+    };
+  }, [form.values.paymentType]);
+
   return (
     <Panel
       title="Initiate a Payment"
@@ -87,6 +113,13 @@ export const InitiateAPaymentPanel = () => {
                   required
                   data={Object.values(PaymentTypeEnum)}
                   {...form.getInputProps('paymentType')}
+                />
+                <Select
+                  label="Debtor details"
+                  placeholder="Choose debtor details"
+                  required
+                  data={selectOptions.debtor}
+                  {...form.getInputProps('debtor')}
                 />
 
                 <Group mt="xl" position="right">
