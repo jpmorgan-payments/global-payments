@@ -1,11 +1,12 @@
 import { Panel, SuccessAlert } from 'components';
 import { useMemo, useState } from 'react';
 import { useForm } from '@mantine/form';
-import { Container, SimpleGrid, Stack } from '@mantine/core';
+import { Container, NumberInput, SimpleGrid, Stack } from '@mantine/core';
 import { Select, Group, Button, LoadingOverlay } from '@mantine/core';
 import { createPaymentResponse } from 'data/createPaymentResponse';
 import { UsRtpPaymentCreateMock } from 'mocks/usRtpPaymentCreateMock';
 import { USRTPMockValues } from 'mocks/accountDetailsMocks';
+import { DateInput } from '@mantine/dates';
 enum FormStateEnum {
   LOADING = 'Making a payment',
   INITIAL = 'Review & Submit',
@@ -20,9 +21,13 @@ type FormValuesType = {
   paymentType?: PaymentTypeEnum;
   debtor?: string;
   creditor?: string;
+  amount?: number;
+  date?: Date;
 };
 
 const convertToPaymentRequest = (values: FormValuesType) => {
+  console.log(values.date);
+  console.log(typeof values.date);
   switch (values.paymentType) {
     case PaymentTypeEnum.US_RTP:
       const response = UsRtpPaymentCreateMock;
@@ -33,6 +38,12 @@ const convertToPaymentRequest = (values: FormValuesType) => {
       if (values.creditor) {
         response.payments.creditor = JSON.parse(values.creditor);
       }
+      if (values.date) {
+        response.payments.requestedExecutionDate = values.date
+          .toISOString()
+          .split('T')[0];
+      }
+      response.payments.paymentAmount = values.amount || 25;
       return response;
     default:
       return UsRtpPaymentCreateMock;
@@ -49,6 +60,8 @@ export const InitiateAPaymentPanel = () => {
       paymentType: PaymentTypeEnum.US_RTP,
       debtor: JSON.stringify(USRTPMockValues[0]),
       creditor: JSON.stringify(USRTPMockValues[1]),
+      amount: 25,
+      date: new Date(),
     },
   });
 
@@ -115,6 +128,7 @@ export const InitiateAPaymentPanel = () => {
                   label="Select Payment Type"
                   placeholder="Choose Payment Type"
                   required
+                  withAsterisk
                   data={Object.values(PaymentTypeEnum)}
                   {...form.getInputProps('paymentType')}
                 />
@@ -122,6 +136,7 @@ export const InitiateAPaymentPanel = () => {
                   label="Debtor details"
                   placeholder="Choose debtor details"
                   required
+                  withAsterisk
                   data={selectOptions.debtor}
                   {...form.getInputProps('debtor')}
                 />
@@ -129,10 +144,26 @@ export const InitiateAPaymentPanel = () => {
                   label="Creditor details"
                   placeholder="Choose creditor details"
                   required
+                  withAsterisk
                   data={selectOptions.creditor}
                   {...form.getInputProps('creditor')}
                 />
+                <NumberInput
+                  {...form.getInputProps('amount')}
+                  label="Amount"
+                  hideControls
+                  required
+                  withAsterisk
+                />
 
+                <DateInput
+                  label="Payment Execution Date"
+                  clearable
+                  withAsterisk
+                  valueFormat="YYYY-MM-DD"
+                  required
+                  {...form.getInputProps('date')}
+                />
                 <Group mt="xl" position="right">
                   <Button type="submit">{formState}</Button>
                 </Group>
