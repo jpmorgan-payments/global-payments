@@ -11,10 +11,15 @@ import {
 } from '@mantine/core';
 import { Select, Group, Button, LoadingOverlay } from '@mantine/core';
 import { createPaymentResponse } from 'data/createPaymentResponse';
-import { UsRtpPaymentCreateMock } from 'mocks/usRtpPaymentCreateMock';
 import {
-  USRTDebtorMockValues,
+  USRTPPaymentInitiationMock,
+  EURTPPaymentInitiationMock,
+} from 'mocks/PaymentInitiationDetailsMock';
+import {
+  USRTPDebtorMockValues,
   USRTPCreditorMockValues,
+  EURTPDebtorMockValues,
+  EURTPCreditorMockValues,
 } from 'mocks/accountDetailsMocks';
 import { DateInput } from '@mantine/dates';
 import { useInitiatePayment } from './hooks/useInitiatePayment';
@@ -29,6 +34,7 @@ enum FormStateEnum {
 
 enum PaymentTypeEnum {
   US_RTP = 'US RTP',
+  EU_SEPA_RTP = 'EU RTP (SEPA)',
 }
 
 type FormValuesType = {
@@ -40,26 +46,28 @@ type FormValuesType = {
 };
 
 const convertToPaymentRequest = (values: FormValuesType) => {
+  let response;
   switch (values.paymentType) {
-    case PaymentTypeEnum.US_RTP:
-      const response = UsRtpPaymentCreateMock;
-      response.payments.paymentIdentifiers.endToEndId = crypto.randomUUID();
-      if (values.debtor) {
-        response.payments.debtor = JSON.parse(values.debtor);
-      }
-      if (values.creditor) {
-        response.payments.creditor = JSON.parse(values.creditor);
-      }
-      if (values.date) {
-        response.payments.requestedExecutionDate = values.date
-          .toISOString()
-          .split('T')[0];
-      }
-      response.payments.paymentAmount = values.amount || 25;
-      return response;
+    case PaymentTypeEnum.EU_SEPA_RTP:
+      response = EURTPPaymentInitiationMock;
+      break;
     default:
-      return UsRtpPaymentCreateMock;
+      response = USRTPPaymentInitiationMock;
   }
+  response.payments.paymentIdentifiers.endToEndId = crypto.randomUUID();
+  if (values.debtor) {
+    response.payments.debtor = JSON.parse(values.debtor);
+  }
+  if (values.creditor) {
+    response.payments.creditor = JSON.parse(values.creditor);
+  }
+  if (values.date) {
+    response.payments.requestedExecutionDate = values.date
+      .toISOString()
+      .split('T')[0];
+  }
+  response.payments.paymentAmount = values.amount || 25;
+  return response;
 };
 
 export const InitiateAPaymentPanel = ({
@@ -75,9 +83,9 @@ export const InitiateAPaymentPanel = ({
   const form = useForm({
     initialValues: {
       paymentType: PaymentTypeEnum.US_RTP,
-      debtor: JSON.stringify(USRTDebtorMockValues[0]),
-      creditor: JSON.stringify(USRTPCreditorMockValues[1]),
       amount: 25,
+      debtor: JSON.stringify(USRTPDebtorMockValues[0]),
+      creditor: JSON.stringify(USRTPCreditorMockValues[1]),
       date: new Date(),
     },
   });
@@ -110,10 +118,29 @@ export const InitiateAPaymentPanel = ({
   };
 
   const selectOptions = useMemo(() => {
-    return {
-      debtor: convertToSelectValue(USRTDebtorMockValues, 'debtorName'),
-      creditor: convertToSelectValue(USRTPCreditorMockValues, 'creditorName'),
-    };
+    let selectValues;
+    switch (form.values.paymentType) {
+      case PaymentTypeEnum.EU_SEPA_RTP:
+        selectValues = {
+          debtor: convertToSelectValue(EURTPDebtorMockValues, 'debtorName'),
+          creditor: convertToSelectValue(
+            EURTPCreditorMockValues,
+            'creditorName',
+          ),
+        };
+        break;
+      default:
+        selectValues = {
+          debtor: convertToSelectValue(USRTPDebtorMockValues, 'debtorName'),
+          creditor: convertToSelectValue(
+            USRTPCreditorMockValues,
+            'creditorName',
+          ),
+        };
+    }
+    form.setFieldValue('debtor', selectValues.debtor[0].value);
+    form.setFieldValue('creditor', selectValues.creditor[1].value);
+    return selectValues;
   }, [form.values.paymentType]);
 
   const submitAPayment = () => {
@@ -225,7 +252,7 @@ export const InitiateAPaymentPanel = ({
           <SuccessAlert
             title="Payment successfully created!"
             successText={
-              "Your payment request has been successful. Check out the table below to see further actions."
+              'Your payment request has been successful. Check out the table below to see further actions.'
             }
             buttonText={formState}
             resetForm={resetForm}
