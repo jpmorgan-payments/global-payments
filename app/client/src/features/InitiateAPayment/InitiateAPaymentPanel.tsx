@@ -225,7 +225,7 @@ export const InitiateAPaymentPanel = ({
           <SuccessAlert
             title="Payment successfully created!"
             successText={
-              "You're payment request has been successful. Check out the table below to see further actions."
+              "Your payment request has been successful. Check out the table below to see further actions."
             }
             buttonText={formState}
             resetForm={resetForm}
