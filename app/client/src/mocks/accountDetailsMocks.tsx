@@ -1,6 +1,6 @@
 import { Debtor } from 'generated-api-models';
 
-export const USRTPDebtorMockValues: Debtor[] = [
+export const USRTPMockValues: Debtor[] = [
   {
     debtorName: 'RAPID AUDIO LLC',
     debtorAccount: {

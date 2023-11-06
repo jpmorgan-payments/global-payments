@@ -5,8 +5,7 @@ import { Container, SimpleGrid, Stack } from '@mantine/core';
 import { Select, Group, Button, LoadingOverlay } from '@mantine/core';
 import { createPaymentResponse } from 'data/createPaymentResponse';
 import { UsRtpPaymentCreateMock } from 'mocks/usRtpPaymentCreateMock';
-import { USRTPDebtorMockValues } from 'mocks/debtorMockValues';
-import { Debtor } from 'generated-api-models';
+import { USRTPMockValues } from 'mocks/accountDetailsMocks';
 enum FormStateEnum {
   LOADING = 'Making a payment',
   INITIAL = 'Review & Submit',
@@ -20,6 +19,7 @@ enum PaymentTypeEnum {
 type FormValuesType = {
   paymentType?: PaymentTypeEnum;
   debtor?: string;
+  creditor?: string;
 };
 
 const convertToPaymentRequest = (values: FormValuesType) => {
@@ -29,6 +29,9 @@ const convertToPaymentRequest = (values: FormValuesType) => {
       response.payments.paymentIdentifiers.endToEndId = crypto.randomUUID();
       if (values.debtor) {
         response.payments.debtor = JSON.parse(values.debtor);
+      }
+      if (values.creditor) {
+        response.payments.creditor = JSON.parse(values.creditor);
       }
       return response;
     default:
@@ -44,7 +47,8 @@ export const InitiateAPaymentPanel = () => {
   const form = useForm({
     initialValues: {
       paymentType: PaymentTypeEnum.US_RTP,
-      debtor: JSON.stringify(USRTPDebtorMockValues[0]),
+      debtor: JSON.stringify(USRTPMockValues[0]),
+      creditor: JSON.stringify(USRTPMockValues[1]),
     },
   });
 
@@ -77,8 +81,8 @@ export const InitiateAPaymentPanel = () => {
 
   const selectOptions = useMemo(() => {
     return {
-      debtor: convertToSelectValue(USRTPDebtorMockValues, 'debtorName'),
-      creditor: {},
+      debtor: convertToSelectValue(USRTPMockValues, 'debtorName'),
+      creditor: convertToSelectValue(USRTPMockValues, 'debtorName'),
     };
   }, [form.values.paymentType]);
 
@@ -120,6 +124,13 @@ export const InitiateAPaymentPanel = () => {
                   required
                   data={selectOptions.debtor}
                   {...form.getInputProps('debtor')}
+                />
+                <Select
+                  label="Creditor details"
+                  placeholder="Choose creditor details"
+                  required
+                  data={selectOptions.creditor}
+                  {...form.getInputProps('creditor')}
                 />
 
                 <Group mt="xl" position="right">
