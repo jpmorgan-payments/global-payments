@@ -80,3 +80,42 @@ export const EURTPPaymentInitiationMock: PaymentInitationDetails = {
     },
   },
 } as PaymentInitationDetails;
+
+export const UKRTPPaymentInitiationMock: PaymentInitationDetails = {
+  payments: {
+    requestedExecutionDate: '2023-10-31',
+    paymentAmount: 25,
+    paymentType: 'RTP',
+    paymentIdentifiers: {
+      endToEndId: 'uf1699288597432',
+    },
+    paymentCurrency: 'GBP',
+    transferType: 'CREDIT',
+    debtor: {
+      debtorName: 'ACCT-0016710040025916-TITLE.1',
+      debtorAccount: {
+        accountId: '0040025916',
+        accountCurrency: 'GBP',
+      },
+    },
+    debtorAgent: {
+      financialInstitutionId: {
+        bic: 'CHASGB2L',
+      },
+    },
+    creditor: {
+      creditorName: 'ACCT-0016710022610202-TITLE.1',
+      creditorAccount: {
+        accountId: '0022610202',
+        accountCurrency: 'EUR',
+      },
+    },
+    creditorAgent: {
+      financialInstitutionId: {
+        clearingSystemId: {
+          id: '185008',
+        },
+      },
+    },
+  },
+} as PaymentInitationDetails;

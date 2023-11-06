@@ -14,12 +14,15 @@ import { createPaymentResponse } from 'data/createPaymentResponse';
 import {
   USRTPPaymentInitiationMock,
   EURTPPaymentInitiationMock,
+  UKRTPPaymentInitiationMock,
 } from 'mocks/PaymentInitiationDetailsMock';
 import {
   USRTPDebtorMockValues,
   USRTPCreditorMockValues,
   EURTPDebtorMockValues,
   EURTPCreditorMockValues,
+  UKRTPCreditorMockValues,
+  UKRTPDebtorMockValues,
 } from 'mocks/accountDetailsMocks';
 import { DateInput } from '@mantine/dates';
 import { useInitiatePayment } from './hooks/useInitiatePayment';
@@ -35,6 +38,7 @@ enum FormStateEnum {
 enum PaymentTypeEnum {
   US_RTP = 'US RTP',
   EU_SEPA_RTP = 'EU RTP (SEPA)',
+  UK_RTP = 'UK RTP',
 }
 
 type FormValuesType = {
@@ -50,6 +54,9 @@ const convertToPaymentRequest = (values: FormValuesType) => {
   switch (values.paymentType) {
     case PaymentTypeEnum.EU_SEPA_RTP:
       response = EURTPPaymentInitiationMock;
+      break;
+    case PaymentTypeEnum.UK_RTP:
+      response = UKRTPPaymentInitiationMock;
       break;
     default:
       response = USRTPPaymentInitiationMock;
@@ -125,6 +132,15 @@ export const InitiateAPaymentPanel = ({
           debtor: convertToSelectValue(EURTPDebtorMockValues, 'debtorName'),
           creditor: convertToSelectValue(
             EURTPCreditorMockValues,
+            'creditorName',
+          ),
+        };
+        break;
+      case PaymentTypeEnum.UK_RTP:
+        selectValues = {
+          debtor: convertToSelectValue(UKRTPDebtorMockValues, 'debtorName'),
+          creditor: convertToSelectValue(
+            UKRTPCreditorMockValues,
             'creditorName',
           ),
         };

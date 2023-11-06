@@ -59,6 +59,23 @@ export const EURTPDebtorMockValues: Debtor[] = [
   },
 ] as Debtor[];
 
+export const UKRTPDebtorMockValues: Debtor[] = [
+  {
+    debtorName: 'ACCT-0016710040025916-TITLE.1',
+    debtorAccount: {
+      accountId: '0040025916',
+      accountCurrency: 'GBP',
+    },
+  },
+  {
+    debtorName: 'ACCT-0016710022610202-TITLE.1',
+    debtorAccount: {
+      accountId: '0022610202',
+      accountCurrency: 'GBP',
+    },
+  },
+];
+
 export const USRTPCreditorMockValues: Creditor[] = [
   {
     creditorName: 'RAPID AUDIO LLC',
@@ -103,7 +120,22 @@ export const EURTPCreditorMockValues: Creditor[] = [
     creditorName: 'ACCT-0017960079607496-TITLE.1',
     creditorAccount: {
       accountId: 'IE98CHAS93090379607496',
-      accountType: 'IBAN'
+      accountType: 'IBAN',
     },
   },
 ] as Creditor[];
+
+export const UKRTPCreditorMockValues: Creditor[] = [
+  {
+    creditorName: 'ACCT-0016710040025916-TITLE.1',
+    creditorAccount: {
+      accountId: '0040025916',
+    },
+  },
+  {
+    creditorName: 'ACCT-0016710022610202-TITLE.1',
+    creditorAccount: {
+      accountId: '0022610202',
+    },
+  },
+];
