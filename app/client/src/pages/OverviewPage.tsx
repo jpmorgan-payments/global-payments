@@ -37,7 +37,7 @@ export const OverviewPage = () => {
       </Title>
       <div>
         <Text>
-          Learn more about Online Payments at:{' '}
+          Learn more about Global Payments at:{' '}
           <Anchor href={GLOBAL_PAYMENTS_DOC_HOME} target="_blank" color="blue">
             {GLOBAL_PAYMENTS_DOC_HOME}
           </Anchor>
