@@ -3,8 +3,9 @@ import { JsonModal, Panel, TableWithJsonDisplay } from 'components';
 import { useState } from 'react';
 import { useGetPaymentByEndToEndId } from './hooks/useGetPaymentByEndToEnd';
 import { PaymentDetailsResponse } from 'generated-api-models';
-import { Button, useMantineTheme } from '@mantine/core';
+import { Anchor, Button, Text, useMantineTheme } from '@mantine/core';
 import { IconEye } from '@tabler/icons';
+import { PAYMENTS_STATUS_API } from 'data/constants';
 
 export const PreviousPaymentPanel = ({
   endToEndIds,
@@ -82,14 +83,23 @@ export const PreviousPaymentPanel = ({
     <Panel
       title="List of Payment Transactions"
       apiCallType="GET"
-      apiEndpoint="/payments/"
+      apiEndpoint="/payments"
     >
       <JsonModal
         json={jsonModalValue}
         modalOpen={modalOpen}
         setModalState={setModalState}
-        apiEndpoint={`/payments/`}
+        apiEndpoint={`/payments`}
       />
+      <Text c="dimmed" fs="italic">
+        This is the Payment Information Retrieval API call. You can see the JSON
+        returned from this API call by clicking on the eye icon. Check out the
+        API specification to find out more{' '}
+        <Anchor href={PAYMENTS_STATUS_API} target="_blank">
+          here.
+        </Anchor>
+      </Text>
+      <br />
       <TableWithJsonDisplay ths={ths} rows={rows} />
     </Panel>
   );

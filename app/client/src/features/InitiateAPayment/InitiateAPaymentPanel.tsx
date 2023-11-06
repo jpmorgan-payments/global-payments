@@ -1,7 +1,14 @@
 import { Panel, SuccessAlert } from 'components';
 import { useMemo, useState } from 'react';
 import { useForm } from '@mantine/form';
-import { Container, NumberInput, SimpleGrid, Stack } from '@mantine/core';
+import {
+  Anchor,
+  Container,
+  NumberInput,
+  SimpleGrid,
+  Stack,
+  Text,
+} from '@mantine/core';
 import { Select, Group, Button, LoadingOverlay } from '@mantine/core';
 import { createPaymentResponse } from 'data/createPaymentResponse';
 import { UsRtpPaymentCreateMock } from 'mocks/usRtpPaymentCreateMock';
@@ -13,6 +20,7 @@ import { DateInput } from '@mantine/dates';
 import { useInitiatePayment } from './hooks/useInitiatePayment';
 import { useQueryClient } from '@tanstack/react-query';
 import { TransactionManagement } from 'shared.types';
+import { PAYMENTS_AUTHORISE_API } from 'data/constants';
 enum FormStateEnum {
   LOADING = 'Making a payment',
   INITIAL = 'Review & Submit',
@@ -141,6 +149,17 @@ export const InitiateAPaymentPanel = ({
       objectDisplayHeight={600}
     >
       <Container pos="relative">
+        <Text c="dimmed" fs="italic">
+          This is the Initiate a Payment API call. You can update the JSON
+          request by altering the fields below. We have autofilled some fields
+          for test data. Once you submit a payment it will appear in the table
+          below and allow you to perform further actions. Check out the API
+          specification to find out more{' '}
+          <Anchor href={PAYMENTS_AUTHORISE_API} target="_blank">
+            here.
+          </Anchor>
+        </Text>
+        <br />
         {formState !== FormStateEnum.COMPLETE ? (
           <form onSubmit={form.onSubmit(submitAPayment)}>
             <LoadingOverlay
