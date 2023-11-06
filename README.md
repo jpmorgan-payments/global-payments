@@ -23,14 +23,13 @@ All your actions on this application are served by mock data included in the app
 ### Postman Collection
 
 Get straight to the API endpoints in action, make calls and see responses.
-To use the Postman collection, import the collection file to Postman and follow the included setup instructions to access all possible calls to the Online Payments API.
+To use the Postman collection, import the collection file to Postman and follow the included setup instructions to access all possible calls to the Global Payments API.
 
 ## Included in the App project folders
 
 ### [Client](./app/client/)
 
 This is the core UI application written in TS/JS with the React framework. This application illustrates the various capabilities of the Global Payments API, using mocked responses stored within the codebase.
-
 
 Check out the [features](./app/client/src/features/) directory to explore the the components and hooks that use these features.
 
@@ -62,7 +61,7 @@ yarn start
 
 4. Open a browser and navigate to the locally deployed app using the URL provided in the command line. Usually `localhost:3000`.
 
-You have deployed the showcase Online Payments app. Follow the onscreen instructions to explore the banking functionality available.
+You have deployed the showcase Global Payments app. Follow the onscreen instructions to explore the banking functionality available.
 
 ## Mocked Data
 

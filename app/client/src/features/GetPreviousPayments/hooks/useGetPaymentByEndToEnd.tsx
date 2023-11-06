@@ -6,7 +6,7 @@ export const useGetPaymentByEndToEndId = async (
   endToEndId: string,
 ): Promise<PaymentDetailsResponse> => {
   const response = await axios.get<PaymentDetailsResponse>(
-    `${API_URL}/api/payments?endToEndId=${endToEndId}`,
+    `${API_URL}/api/tsapi/v1/payments?endToEndId=${endToEndId}`,
   );
   return response.data;
 };

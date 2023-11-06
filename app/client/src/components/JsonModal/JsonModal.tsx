@@ -1,7 +1,5 @@
-import { Badge, Button, Code, Group, Modal } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { Badge, Code, Group, Modal } from '@mantine/core';
 import { Prism } from '@mantine/prism';
-import { IconEye } from '@tabler/icons';
 
 interface JsonModalProps {
   json?: object;
