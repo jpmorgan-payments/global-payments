@@ -117,7 +117,7 @@ export const InitiateAPaymentPanel = ({
       {
         onSuccess: (data) => {
           queryClient.setQueryData(
-            ['payments', data.paymentInitiationResponse?.endToEndId],
+            ['paymentsInitiation', data.paymentInitiationResponse?.endToEndId],
             data,
           );
           setEndToEndIds([
