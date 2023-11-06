@@ -1,0 +1,155 @@
+{
+	"info": {
+		"_postman_id": "98d0fa5e-58ab-4d0b-b936-6ad5ee598ef4",
+		"name": "Global Payments",
+		"description": "This is the Global Payments Showcase postman collection.\n\nIt includes postman requests for all the core requests on the Global Payments API. You can use this collection to hit our sandbox servers using the OAuth credentials from",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26402882"
+	},
+	"item": [
+		{
+			"name": "Sandbox",
+			"item": [
+				{
+					"name": "Retrieve payment details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{host_url}}/tsapi/v1/payments?endToEndId={{endToEndId}}",
+							"host": [
+								"{{host_url}}"
+							],
+							"path": [
+								"tsapi",
+								"v1",
+								"payments"
+							],
+							"query": [
+								{
+									"key": "endToEndId",
+									"value": "{{endToEndId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initiate A Payment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 202\", function () {",
+									"    pm.response.to.have.code(202);",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"endToEndId\", jsonData.paymentInitiationResponse.endToEndId);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"payments\": {\n    \"possibleDuplicateMessage\": false,\n    \"paymentIdentifiers\": {\n      \"endToEndId\": \"AD202109311354152\"\n    },\n    \"requestedExecutionDate\": \"2023-04-22\",\n    \"transferType\": \"CREDIT\",\n    \"paymentCurrency\": \"GBP\",\n    \"paymentAmount\": 650,\n    \"paymentType\": \"RTP\",\n    \"debtor\": {\n      \"debtorAccount\": {\n        \"accountId\": \"12311871\",\n        \"accountCurrency\": \"GBP\",\n        \"accountType\": \"DDA\"\n      },\n      \"ultimateDebtor\": {\n        \"ultimateDebtorName\": \"Wayne Thompson\",\n        \"postalAddress\": {\n          \"addressType\": \"ADDR\",\n          \"streetName\": \"Lennon Road\",\n          \"buildingNumber\": \"22\",\n          \"townName\": \"Liverpool\",\n          \"country\": \"GB\"\n        },\n        \"countryOfResidence\": \"GB\",\n        \"organizationId\": {\n          \"bic\": \"CHASGB2L\",\n          \"id\": \"40025916\"\n        }\n      }\n    },\n    \"debtorAgent\": {\n      \"financialInstitutionId\": {\n        \"bic\": \"CHASGB2L\"\n      }\n    },\n    \"creditorAgent\": {\n      \"financialInstitutionId\": {\n        \"clearingSystemId\": {\n          \"id\": \"185008\"\n        }\n      }\n    },\n    \"creditor\": {\n      \"creditorName\": \"David Burn\",\n      \"postalAddress\": {\n        \"addressType\": \"ADDR\",\n        \"streetName\": \"Fratton Park\",\n        \"buildingNumber\": \"411\",\n        \"postalCode\": \"PO48RA\",\n        \"townName\": \"Portsmouth\",\n        \"country\": \"GB\",\n        \"countrySubDvsn\": \"Hampshire\"\n      },\n      \"countryOfResidence\": \"GB\",\n      \"creditorAccount\": {\n        \"accountId\": \"87654321\"\n      },\n      \"ultimateCreditor\": {\n        \"ultimateCreditorName\": \"Clint Hall\",\n        \"individualId\": {\n          \"id\": \"87654321\"\n        },\n        \"postalAddress\": {\n          \"addressType\": \"ADDR\",\n          \"streetName\": \"Fratton Park\",\n          \"buildingNumber\": \"411\",\n          \"postalCode\": \"PO48RA\",\n          \"townName\": \"Portsmouth\",\n          \"country\": \"GB\",\n          \"countrySubDvsn\": \"Hampshire\"\n        }\n      }\n    },\n    \"purpose\": {\n      \"code\": \"GDDS\",\n      \"type\": \"CODE\"\n    },\n    \"remittanceInformation\": {\n      \"unstructuredInformation\": [\n        \"Payment for Macbook batteries Receipt #AXF23-LGG\"\n      ]\n    }\n  }\n}"
+						},
+						"url": {
+							"raw": "{{host_url}}/tsapi/v1/payments",
+							"host": [
+								"{{host_url}}"
+							],
+							"path": [
+								"tsapi",
+								"v1",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "This contains requests for hitting the Sandbox API.\n\nCollect your client id and token from [https://developer.payments.jpmorgan.com](https://developer.payments.jpmorgan.com)",
+			"auth": {
+				"type": "oauth2",
+				"oauth2": [
+					{
+						"key": "accessTokenUrl",
+						"value": "https://id.payments.jpmorgan.com/am/oauth2/alpha/access_token",
+						"type": "string"
+					},
+					{
+						"key": "grant_type",
+						"value": "client_credentials",
+						"type": "string"
+					},
+					{
+						"key": "tokenName",
+						"value": "oauth_token",
+						"type": "string"
+					},
+					{
+						"key": "scope",
+						"value": "jpm:payments:sandbox",
+						"type": "string"
+					},
+					{
+						"key": "clientSecret",
+						"value": "{{client_secret}}",
+						"type": "string"
+					},
+					{
+						"key": "clientId",
+						"value": "{{client_id}}",
+						"type": "string"
+					},
+					{
+						"key": "addTokenTo",
+						"value": "header",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
