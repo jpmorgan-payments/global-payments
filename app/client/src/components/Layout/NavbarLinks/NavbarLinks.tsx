@@ -1,6 +1,6 @@
 import { Link, LinkProps, useMatch, useResolvedPath } from 'react-router-dom';
 import { UnstyledButton } from '@mantine/core';
-import { IconExchange, IconHome, IconReportMoney } from '@tabler/icons';
+import { IconHome, IconExchange } from '@tabler/icons';
 
 import useStyles from './NavbarLinks.styles';
 
@@ -9,7 +9,7 @@ const links = [
   {
     link: 'payments',
     label: 'Initiate a Payment',
-    icon: IconReportMoney,
+    icon: IconExchange,
   },
 ];
 
