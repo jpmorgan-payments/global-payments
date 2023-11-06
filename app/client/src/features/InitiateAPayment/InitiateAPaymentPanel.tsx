@@ -19,7 +19,7 @@ enum PaymentTypeEnum {
 
 type FormValuesType = {
   paymentType?: PaymentTypeEnum;
-  debtor?: Debtor;
+  debtor?: string;
 };
 
 const convertToPaymentRequest = (values: FormValuesType) => {
@@ -28,7 +28,7 @@ const convertToPaymentRequest = (values: FormValuesType) => {
       const response = UsRtpPaymentCreateMock;
       response.payments.paymentIdentifiers.endToEndId = crypto.randomUUID();
       if (values.debtor) {
-        response.payments.debtor = values.debtor;
+        response.payments.debtor = JSON.parse(values.debtor);
       }
       return response;
     default:
@@ -44,7 +44,7 @@ export const InitiateAPaymentPanel = () => {
   const form = useForm({
     initialValues: {
       paymentType: PaymentTypeEnum.US_RTP,
-      debtor: USRTPDebtorMockValues[0],
+      debtor: JSON.stringify(USRTPDebtorMockValues[0]),
     },
   });
 
@@ -69,7 +69,7 @@ export const InitiateAPaymentPanel = () => {
     return obj.map((value, index) => {
       return {
         key: index,
-        value: value,
+        value: JSON.stringify(value),
         label: value[firstKey],
       };
     });
