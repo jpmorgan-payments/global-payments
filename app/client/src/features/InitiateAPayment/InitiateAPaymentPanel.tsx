@@ -5,7 +5,10 @@ import { Container, NumberInput, SimpleGrid, Stack } from '@mantine/core';
 import { Select, Group, Button, LoadingOverlay } from '@mantine/core';
 import { createPaymentResponse } from 'data/createPaymentResponse';
 import { UsRtpPaymentCreateMock } from 'mocks/usRtpPaymentCreateMock';
-import { USRTPMockValues } from 'mocks/accountDetailsMocks';
+import {
+  USRTDebtorMockValues,
+  USRTPCreditorMockValues,
+} from 'mocks/accountDetailsMocks';
 import { DateInput } from '@mantine/dates';
 enum FormStateEnum {
   LOADING = 'Making a payment',
@@ -26,8 +29,6 @@ type FormValuesType = {
 };
 
 const convertToPaymentRequest = (values: FormValuesType) => {
-  console.log(values.date);
-  console.log(typeof values.date);
   switch (values.paymentType) {
     case PaymentTypeEnum.US_RTP:
       const response = UsRtpPaymentCreateMock;
@@ -58,8 +59,8 @@ export const InitiateAPaymentPanel = () => {
   const form = useForm({
     initialValues: {
       paymentType: PaymentTypeEnum.US_RTP,
-      debtor: JSON.stringify(USRTPMockValues[0]),
-      creditor: JSON.stringify(USRTPMockValues[1]),
+      debtor: JSON.stringify(USRTDebtorMockValues[0]),
+      creditor: JSON.stringify(USRTPCreditorMockValues[1]),
       amount: 25,
       date: new Date(),
     },
@@ -94,8 +95,8 @@ export const InitiateAPaymentPanel = () => {
 
   const selectOptions = useMemo(() => {
     return {
-      debtor: convertToSelectValue(USRTPMockValues, 'debtorName'),
-      creditor: convertToSelectValue(USRTPMockValues, 'debtorName'),
+      debtor: convertToSelectValue(USRTDebtorMockValues, 'debtorName'),
+      creditor: convertToSelectValue(USRTPCreditorMockValues, 'creditorName'),
     };
   }, [form.values.paymentType]);
 
@@ -110,7 +111,7 @@ export const InitiateAPaymentPanel = () => {
     >
       <Container pos="relative">
         {formState !== FormStateEnum.COMPLETE ? (
-          <form onSubmit={form.onSubmit(() => console.log('here'))}>
+          <form onSubmit={form.onSubmit(() => console.log('coming soon...'))}>
             <LoadingOverlay
               visible={formState === FormStateEnum.LOADING}
               overlayBlur={2}
