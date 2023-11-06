@@ -19,7 +19,7 @@ export const previousPaymentMock: PaymentDetailsResponse[] = [
       },
       transferType: 'CREDIT',
       paymentIdentifiers: {
-        endToEndId: 'uf1693824860398',
+        endToEndId: '898e11f9-34c2-4c57-b00e-f54650aed020',
       },
       paymentCurrency: 'EUR',
       paymentAmount: 25,
@@ -42,7 +42,7 @@ export const previousPaymentMock: PaymentDetailsResponse[] = [
     },
     paymentStatus: {
       createDateTime: '2023-09-04T10:54:34.000',
-      status: 'PENDING',
+      status: 'COMPLETED',
     },
     firmRootId: 'f93f7986-9be1-44c0-b7e8-9f24bec3c0ff',
   },
