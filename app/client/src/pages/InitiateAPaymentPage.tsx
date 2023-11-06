@@ -17,7 +17,7 @@ export const InitiateAPaymentPage = ({
     >
       <Text>TODO</Text>
       <SimpleGrid>
-        <InitiateAPaymentPanel />
+        <InitiateAPaymentPanel setEndToEndIds={setEndToEndIds} endToEndIds={endToEndIds}/>
         <PreviousPaymentPanel endToEndIds={endToEndIds} />
       </SimpleGrid>
     </PageWrapper>

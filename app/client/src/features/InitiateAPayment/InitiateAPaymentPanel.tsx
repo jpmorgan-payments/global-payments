@@ -10,6 +10,9 @@ import {
   USRTPCreditorMockValues,
 } from 'mocks/accountDetailsMocks';
 import { DateInput } from '@mantine/dates';
+import { useInitiatePayment } from './hooks/useInitiatePayment';
+import { useQueryClient } from '@tanstack/react-query';
+import { TransactionManagement } from 'shared.types';
 enum FormStateEnum {
   LOADING = 'Making a payment',
   INITIAL = 'Review & Submit',
@@ -51,10 +54,15 @@ const convertToPaymentRequest = (values: FormValuesType) => {
   }
 };
 
-export const InitiateAPaymentPanel = () => {
+export const InitiateAPaymentPanel = ({
+  endToEndIds,
+  setEndToEndIds,
+}: TransactionManagement) => {
   const [formState, setFormState] = useState<FormStateEnum>(
     FormStateEnum.INITIAL,
   );
+  const queryClient = useQueryClient();
+  const { mutate: initiatePayment } = useInitiatePayment();
 
   const form = useForm({
     initialValues: {
@@ -100,6 +108,29 @@ export const InitiateAPaymentPanel = () => {
     };
   }, [form.values.paymentType]);
 
+  const submitAPayment = () => {
+    setFormState(FormStateEnum.LOADING);
+    initiatePayment(
+      {
+        paymentRequest: paymentRequest,
+      },
+      {
+        onSuccess: (data) => {
+          queryClient.setQueryData(
+            ['payments', data.paymentInitiationResponse?.endToEndId],
+            data,
+          );
+          setEndToEndIds([
+            ...endToEndIds,
+            data.paymentInitiationResponse?.endToEndId || '',
+          ]);
+        },
+        onSettled: () => {
+          setFormState(FormStateEnum.COMPLETE);
+        },
+      },
+    );
+  };
   return (
     <Panel
       title="Initiate a Payment"
@@ -111,7 +142,7 @@ export const InitiateAPaymentPanel = () => {
     >
       <Container pos="relative">
         {formState !== FormStateEnum.COMPLETE ? (
-          <form onSubmit={form.onSubmit(() => console.log('coming soon...'))}>
+          <form onSubmit={form.onSubmit(submitAPayment)}>
             <LoadingOverlay
               visible={formState === FormStateEnum.LOADING}
               overlayBlur={2}
