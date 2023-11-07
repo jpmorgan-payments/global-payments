@@ -231,7 +231,7 @@ export const InitiateAPaymentPanel = ({
                   {...form.getInputProps('paymentType')}
                 />
                 <Select
-                  label="Debtor details"
+                  label="Debtor details (Account sending funds)"
                   placeholder="Choose debtor details"
                   required
                   withAsterisk
@@ -239,7 +239,7 @@ export const InitiateAPaymentPanel = ({
                   {...form.getInputProps('debtor')}
                 />
                 <Select
-                  label="Creditor details"
+                  label="Creditor details (Account receiving funds)"
                   placeholder="Choose creditor details"
                   required
                   withAsterisk
