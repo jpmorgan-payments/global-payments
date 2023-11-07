@@ -61,7 +61,7 @@ const convertToPaymentRequest = (values: FormValuesType) => {
     default:
       response = USRTPPaymentInitiationMock;
   }
-  response.payments.paymentIdentifiers.endToEndId = crypto.randomUUID();
+  response.payments.paymentIdentifiers.endToEndId = `gp-${Date.now()}`;
   if (values.debtor) {
     response.payments.debtor = JSON.parse(values.debtor);
   }
