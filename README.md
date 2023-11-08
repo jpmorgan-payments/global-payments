@@ -1,4 +1,4 @@
-# Global Payments showcase app
+# Global Payments showcase app - TEST
 
 The Global Payments API allows you to accept payments across a variety of regions and countries.
 
