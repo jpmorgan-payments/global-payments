@@ -78,8 +78,5 @@
   },
   "msw": {
     "workerDirectory": "public"
-  },
-  "resolutions": {
-    "graphql": "16.8.1"
   }
 }
