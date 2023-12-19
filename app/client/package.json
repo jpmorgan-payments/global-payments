@@ -17,11 +17,11 @@
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
-    "axios": "^0.27.2",
+    "axios": "1.6.2",
     "dayjs": "^1.11.2",
     "jsdom": "^21.1.0",
     "jwt-decode": "^3.1.2",
-    "mermaid": "^9.1.2",
+    "mermaid": "10.6.1",
     "msw": "^2.0.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
@@ -80,6 +80,6 @@
     "workerDirectory": "public"
   },
   "resolutions": {
-    "graphql": "16.5.0"
+    "graphql": "16.8.1"
   }
 }
