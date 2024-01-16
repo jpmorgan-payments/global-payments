@@ -200,9 +200,9 @@ export const InitiateAPaymentPanel = ({
           This is the Initiate a Payment API call. You can update the JSON
           request by altering the fields below. We have autofilled some fields
           for test data. Once you submit a payment it will appear in the table
-          below and allow you to perform further actions. Check out the API
-          specification to find out more{' '}
-          <Anchor href={PAYMENTS_AUTHORISE_API} target="_blank">
+          below and allow you to perform further actions.
+          <br /> Check out the API specification to find out more{' '}
+          <Anchor href={PAYMENTS_AUTHORISE_API} target="_blank" underline>
             here.
           </Anchor>
         </Text>
