@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "98d0fa5e-58ab-4d0b-b936-6ad5ee598ef4",
+		"_postman_id": "25e968fe-416f-4c95-ab59-46917d3aeaa3",
 		"name": "Global Payments",
 		"description": "This is the Global Payments Showcase postman collection.\n\nIt includes postman requests for all the core requests on the Global Payments API. You can use this collection to hit our sandbox servers using the OAuth credentials from",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -13,6 +13,9 @@
 				{
 					"name": "Retrieve payment details",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -90,46 +93,6 @@
 				}
 			],
 			"description": "This contains requests for hitting the Sandbox API.\n\nCollect your client id and token from [https://developer.payments.jpmorgan.com](https://developer.payments.jpmorgan.com)",
-			"auth": {
-				"type": "oauth2",
-				"oauth2": [
-					{
-						"key": "accessTokenUrl",
-						"value": "https://id.payments.jpmorgan.com/am/oauth2/alpha/access_token",
-						"type": "string"
-					},
-					{
-						"key": "grant_type",
-						"value": "client_credentials",
-						"type": "string"
-					},
-					{
-						"key": "tokenName",
-						"value": "oauth_token",
-						"type": "string"
-					},
-					{
-						"key": "scope",
-						"value": "jpm:payments:sandbox",
-						"type": "string"
-					},
-					{
-						"key": "clientSecret",
-						"value": "{{client_secret}}",
-						"type": "string"
-					},
-					{
-						"key": "clientId",
-						"value": "{{client_id}}",
-						"type": "string"
-					},
-					{
-						"key": "addTokenTo",
-						"value": "header",
-						"type": "string"
-					}
-				]
-			},
 			"event": [
 				{
 					"listen": "prerequest",
@@ -150,6 +113,71 @@
 					}
 				}
 			]
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "scope",
+				"value": "jpm:payments:sandbox",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "https://id.payments.jpmorgan.com/am/oauth2/alpha/access_token",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "client_credentials",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "{{client_secret}}",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "{{client_id}}",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "https://id.payments.jpmorgan.com/am/oauth2/alpha/access_token",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "oauth_token",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
