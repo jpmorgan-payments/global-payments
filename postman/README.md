@@ -1,4 +1,4 @@
-# Online Payments Postman Collection
+# Global Payments Postman Collection
 
 We have created a postman collection for each of the calls made on the showcase application.
 
