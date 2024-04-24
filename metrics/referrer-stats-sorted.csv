@@ -1,10 +1,10 @@
 repository_name,site,views,unique_visitors/cloners
-global-payments,Google,19,2
+global-payments,Google,24,3
 global-payments,confluence.walmart.com,1,1
-global-payments,developer.payments.jpmorgan.com,36,3
+global-payments,developer.payments.jpmorgan.com,38,4
 global-payments,embedded-banking-dev.com,6,1
 global-payments,gateway.zscalertwo.net,8,1
-global-payments,github.com,2,2
+global-payments,github.com,1,1
 global-payments,global-payments-dev.com,2,2
 global-payments,jpmorgan.com,15,1
 global-payments,mage2.pro,24,1
