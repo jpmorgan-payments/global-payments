@@ -1,11 +1,11 @@
 repository_name,site,views,unique_visitors/cloners
-global-payments,Google,19,7
+global-payments,Google,17,6
 global-payments,confluence.walmart.com,1,1
-global-payments,developer.payments.jpmorgan.com,3,1
+global-payments,developer.payments.jpmorgan.com,4,2
 global-payments,embedded-banking-dev.com,6,1
 global-payments,gateway.zscalertwo.net,8,1
-global-payments,github.com,3,3
-global-payments,global-payments-dev.com,1,1
+global-payments,github.com,4,4
+global-payments,global-payments-dev.com,17,1
 global-payments,jiradc-cib-cluster02.prod.aws.jpmchase.net,7,2
 global-payments,jiradc-cto.prod.aws.jpmchase.net,1,1
 global-payments,jpmorgan.com,15,1
