@@ -1,1 +1,17 @@
 repository_name,site,views,unique_visitors/cloners
+global-payments,jiradc-cib-cluster02.prod.aws.jpmchase.net,7,2
+global-payments,Google,73,2
+global-payments,gateway.zscalertwo.net,8,1
+global-payments,payments-preview.prod.aws.jpmchase.net,1,1
+global-payments,yandex.ru,1,1
+global-payments,github.com,9,5
+global-payments,embedded-banking-dev.com,6,1
+global-payments,jpmorgan.com,15,1
+global-payments,jiradc-cto.prod.aws.jpmchase.net,1,1
+global-payments,developer.payments.jpmorgan.com,6,3
+global-payments,theforage.com,1,1
+global-payments,online-payments-dev.com,13,3
+global-payments,teams.microsoft.com,2,1
+global-payments,confluence.walmart.com,1,1
+global-payments,mage2.pro,24,1
+global-payments,global-payments-dev.com,16,3
